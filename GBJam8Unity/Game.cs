@@ -1,5 +1,22 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
+
+public class RootState : GameState
+{
+	public RootState(Game game)
+		: base(game)
+	{
+
+	}
+
+	public override IEnumerator StateRoutine()
+	{
+		var menu = new MenuState(Game);
+
+		yield return menu.StateRoutine();
+	}
+}
 
 [Serializable]
 public class SceneSetup
@@ -9,27 +26,20 @@ public class SceneSetup
 
 	[Header("Overworld")]
 	public GameObject WorldOverworld;
-	public PlayerController PlayerPrefab;
 
 	[Header("Mining")]
 	public GameObject WorldMining;
-	public WallRenderer WallRenderer;
-	public ParticleSystem DustParticles;
-	public Animator Selection;
 }
 
 public class Game : MonoBehaviour
 {
 	public SceneSetup Setup;
-	public GameState State;
 
-	private StateMachineRoot rootState;
+	private RootState rootState;
 
 	private void Start()
 	{
-		State = new GameState();
-
-		rootState = new StateMachineRoot(this);
+		rootState = new RootState(this);
 		StartCoroutine(rootState.StateRoutine());
 	}
 
