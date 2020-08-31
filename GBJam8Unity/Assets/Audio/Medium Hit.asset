@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d052a6220061e34aadf5ebacb39e3dd, type: 3}
+  m_Name: Medium Hit
+  m_EditorClassIdentifier: 
+  VolumeGroup: Sfx
+  Clips:
+  - {fileID: 8300000, guid: 256a7af842dfb814a9099bdbcf89cab0, type: 3}
+  - {fileID: 8300000, guid: 6d92222450fd23e49858200074f69214, type: 3}
+  - {fileID: 8300000, guid: bb44bd83d408afa4fb22d5f4bafa7858, type: 3}
+  - {fileID: 8300000, guid: 57b4f40e2b8aeac4eafeb380555cc76b, type: 3}
+  VolumeRange: {x: 1, y: 1}
+  PitchRange: {x: 0.95, y: 1}

@@ -5,6 +5,8 @@ public class GameState
 {
 	public Dictionary<Vector3Int, WallTileData> WallTiles { get; }
 
+	public MiningBrush[] Brushes { get; internal set; }
+
 	public GameState()
 	{
 		WallTiles = new Dictionary<Vector3Int, WallTileData>();

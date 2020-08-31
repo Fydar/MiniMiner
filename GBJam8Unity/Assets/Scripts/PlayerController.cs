@@ -3,6 +3,8 @@ using UnityEngine.Tilemaps;
 
 public class PlayerController : MonoBehaviour
 {
+	public Game game;
+
 	public float MovementAmountPerAxis = 1.0f / 16.0f;
 	public float MovementUpdates = 1.0f / 20.0f;
 
@@ -12,7 +14,7 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] private TileBase terrainWall;
 	[SerializeField] private TileBase terrainFloor;
 	[Space]
-	[SerializeField] private Animator selector;
+	[SerializeField] public Animator selector;
 
 
 	[Header("Graphics")]
@@ -22,7 +24,13 @@ public class PlayerController : MonoBehaviour
 	private Rigidbody2D rb;
 	[SerializeField] private Vector2 facingDirection;
 
+	[Header("Audio")]
+	public float FootstepCooldown;
+	private float lastFootstepSound;
+
 	private Vector2 Position => new Vector2(transform.position.x, transform.position.y);
+
+	public bool EnableInput = true;
 
 	private void Awake()
 	{
@@ -44,14 +52,26 @@ public class PlayerController : MonoBehaviour
 			return;
 		}
 
-		var movementDirection = new Vector2(
-			Input.GetAxisRaw("Horizontal"),
-			Input.GetAxisRaw("Vertical")
-		);
+		var movementDirection = Vector2.zero;
+		
+		if (EnableInput)
+		{
+			movementDirection = new Vector2(
+				Input.GetAxisRaw("Horizontal"),
+				Input.GetAxisRaw("Vertical")
+			);
+		}
+
 		var movementDelta = movementDirection * MovementAmountPerAxis;
 
 		if (movementDirection.magnitude > 0.1f)
 		{
+			if ((lastFootstepSound + FootstepCooldown) < Time.realtimeSinceStartup)
+			{
+				lastFootstepSound = Time.realtimeSinceStartup;
+				AudioManager.Play(game.Setup.StepSound);
+			}
+
 			if (Mathf.Abs(movementDirection.x) > 0.1f)
 			{
 				facingDirection = new Vector2(movementDirection.x, 0.0f);
