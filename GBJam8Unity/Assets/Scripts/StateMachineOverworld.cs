@@ -14,14 +14,15 @@ public class StateMachineOverworld : StateMachineState
 
 	public override IEnumerator StateRoutine()
 	{
-		Setup.WorldMining.SetActive(false);
-		Setup.WorldOverworld.SetActive(true);
+		Setup.SetActiveWorld(Setup.WorldOverworld);
 
-		foreach (float time in new TimedLoop(0.5f))
+		foreach (float time in new TimedLoop(0.45f))
 		{
 			Setup.CircleWipe.SetTime(1.0f - time);
 			yield return null;
 		}
+
+		Setup.PlayerPrefab.EnableInput = true;
 
 		yield return null;
 
@@ -29,17 +30,21 @@ public class StateMachineOverworld : StateMachineState
 		{
 			if (Setup.PlayerPrefab.CanMine && Input.GetKeyDown(KeyCode.X))
 			{
+				Setup.PlayerPrefab.selector.SetTrigger("Press");
+
+				Setup.PlayerPrefab.EnableInput = false;
+
 				ReturnAction = new ReturnActionGoMining()
 				{
 					Target = Setup.PlayerPrefab.FacingTile
 				};
 
-				foreach (float time in new TimedLoop(0.25f))
+				foreach (float time in new TimedLoop(0.5f))
 				{
 					Setup.CircleWipe.SetTime(time);
 					yield return null;
 				}
-
+				yield return new WaitForSeconds(0.1f);
 				yield break;
 			}
 

@@ -31,4 +31,25 @@
 			? data | 1 << index
 			: data & ~(1 << index));
 	}
+
+	public NodeLayers RemoveDestructableLayer()
+	{
+		if (Surface)
+		{
+			return new NodeLayers()
+			{
+				data = data,
+				Surface = false
+			};
+		}
+		if (Gravel)
+		{
+			return new NodeLayers()
+			{
+				data = data,
+				Gravel = false
+			};
+		}
+		return this;
+	}
 }
