@@ -27,7 +27,7 @@ public class StateMachineOverworld : StateMachineState
 
 		while (true)
 		{
-			if (Input.GetKeyDown(KeyCode.X))
+			if (Setup.PlayerPrefab.CanMine && Input.GetKeyDown(KeyCode.X))
 			{
 				ReturnAction = new ReturnActionGoMining()
 				{
