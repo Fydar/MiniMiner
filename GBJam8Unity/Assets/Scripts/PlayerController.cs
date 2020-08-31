@@ -11,6 +11,9 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] private TilemapCollider2D terrainCollider;
 	[SerializeField] private TileBase terrainWall;
 	[SerializeField] private TileBase terrainFloor;
+	[Space]
+	[SerializeField] private Animator selector;
+
 
 	[Header("Graphics")]
 	[SerializeField] private Animator animator;
@@ -101,13 +104,21 @@ public class PlayerController : MonoBehaviour
 
 	private void Update()
 	{
+		var sampleTile = FacingTile;
+
+		var otherTile = terrain.GetTile(sampleTile);
+		if (otherTile == terrainWall)
+		{
+			selector.transform.position = new Vector3(sampleTile.x + 0.5f, sampleTile.y + 0.5f, 0.0f);
+			selector.gameObject.SetActive(true);
+		}
+		else
+		{
+			selector.gameObject.SetActive(false);
+		}
+
 		if (Input.GetKeyDown(KeyCode.C))
 		{
-			var samplePoint = Position + (facingDirection * 0.65f);
-			var sampleTile = Vector3Int.FloorToInt(samplePoint);
-
-			var otherTile = terrain.GetTile(sampleTile);
-
 			// Debug.DrawLine(samplePoint, new Vector3(samplePoint.x, samplePoint.y, 0.0f) + Vector3.forward, Color.red, 1.0f);
 		}
 	}
@@ -116,10 +127,19 @@ public class PlayerController : MonoBehaviour
 	{
 		get
 		{
-			var samplePoint = Position + (facingDirection * 0.65f);
+			var samplePoint = Position + new Vector2(0.0f, 0.0f) + (facingDirection * 0.85f);
 			var sampleTile = Vector3Int.FloorToInt(samplePoint);
 
 			return sampleTile;
+		}
+	}
+
+	public bool CanMine
+	{
+		get
+		{
+			var otherTile = terrain.GetTile(FacingTile);
+			return otherTile == terrainWall;
 		}
 	}
 }
