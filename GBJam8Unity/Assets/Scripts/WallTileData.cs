@@ -2,7 +2,17 @@
 
 public class WallTileData
 {
+	public int WallMaxHealth = 50;
+	public int WallHealth = 50;
 	public WallTileNode[,] Nodes;
+
+	public bool IsCollapsed
+	{
+		get
+		{
+			return WallHealth <= 0;
+		}
+	}
 
 	public WallTileData()
 	{

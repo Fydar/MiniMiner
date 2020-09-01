@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Linq;
 using UnityEngine;
 using Utility;
 
@@ -15,10 +16,14 @@ public class StateMachineMining : StateMachineState
 	public override IEnumerator StateRoutine()
 	{
 		Setup.MiningSelection.gameObject.SetActive(false);
-		Setup.SetActiveWorld(Setup.WorldMining);
 
 		var wallData = Game.State.GetOrGenerate(Game.Setup.PlayerPrefab.FacingTile);
 		Setup.WallRenderer.RenderWall(wallData);
+		Setup.SetActiveWorld(Setup.WorldMining);
+
+
+		float wallCracksTime = (float)wallData.WallHealth / wallData.WallMaxHealth;
+		Setup.CracksTransition.SetTime(1.0f - wallCracksTime);
 
 		foreach (float time in new TimedLoop(0.45f))
 		{
@@ -100,29 +105,56 @@ public class StateMachineMining : StateMachineState
 				{
 					yield return new WaitForSeconds(digTime);
 
-					foreach (var dig in brush.DiggingPattern.Entries)
-					{
-						if (Random.value > dig.Chance)
-						{
-							continue;
-						}
+					int digSelectionCount = Random.Range(brush.DiggingPattern.MinimumDigs, brush.DiggingPattern.MaximumDigs + 1);
 
+					var digPattern = brush.DiggingPattern.Entries.OrderByDescending(e => (Random.value * e.Chance) + e.LayerFudge);
+					int performedDigs = 0;
+					foreach (var digLocation in digPattern)
+					{
 						var digPos = SelectionPosition
-							+ new Vector2Int(dig.Offset.x, dig.Offset.y)
+							+ new Vector2Int(digLocation.Offset.x, digLocation.Offset.y)
 							+ randomOffset.Offset;
 
 						var current = wallData.Nodes[digPos.x, digPos.y];
-						wallData.Nodes[digPos.x, digPos.y] = new WallTileNode()
+
+						if (!brush.DiggingPattern.IsSmartBrush
+							|| (current.Layers.Gravel || current.Layers.Surface))
 						{
-							Layers = current.Layers.RemoveDestructableLayer()
-						};
+							wallData.Nodes[digPos.x, digPos.y] = new WallTileNode()
+							{
+								Layers = current.Layers.RemoveDestructableLayer()
+							};
+
+							performedDigs++;
+							if (performedDigs >= digSelectionCount)
+							{
+								break;
+							}
+						}
 					}
 					AudioManager.Play(brush.HitSound);
 					Setup.MiningSelection.SetTrigger("Press");
 					Setup.WorldMining.WorldCamera.GetComponent<PerlinShake>().PlayShake(brush.ShakeIntencity);
 					Setup.HitDustParticles.Emit(brush.HitParticles);
+					Setup.DustFallParticles.Play();
 
 					Setup.WallRenderer.RenderWall(wallData);
+
+					wallData.WallHealth -= Random.Range(brush.MinimumWallDamage, brush.MaximumWallDamage);
+
+					wallCracksTime = (float)wallData.WallHealth / wallData.WallMaxHealth;
+					Setup.CracksTransition.SetTime(1.0f - wallCracksTime);
+
+					if (wallData.IsCollapsed)
+					{
+						foreach (float time in new TimedLoop(0.5f))
+						{
+							Setup.CircleWipe.SetTime(time);
+							yield return null;
+						}
+						yield return new WaitForSeconds(0.1f);
+						yield break;
+					}
 				}
 			}
 
