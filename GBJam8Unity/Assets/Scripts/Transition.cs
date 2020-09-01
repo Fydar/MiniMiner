@@ -8,6 +8,6 @@ public class Transition
 
 	public void SetTime(float time)
 	{
-		CircleWipe.SetFloat("_animateTime", time);
+		CircleWipe.SetFloat("_animateTime", Mathf.Clamp01(time));
 	}
 }

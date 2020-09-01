@@ -26,7 +26,9 @@ public class SceneSetup
 	public WallRenderer WallRenderer;
 	public ParticleSystem DustParticles;
 	public ParticleSystem HitDustParticles;
+	public ParticleSystem DustFallParticles;
 	public Animator MiningSelection;
+	public Transition CracksTransition;
 
 	[Header("Audio")]
 	public SfxGroup NudgeSound;
