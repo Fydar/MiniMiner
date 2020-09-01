@@ -14,4 +14,5 @@ public class MiningBrush : ScriptableObject
 	[Header("Effects")]
 	public SfxGroup HitSound;
 	public float ShakeIntencity = 1.0f;
+	public int HitParticles = 60;
 }

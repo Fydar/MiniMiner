@@ -25,6 +25,7 @@ public class SceneSetup
 	public WorldData WorldMining;
 	public WallRenderer WallRenderer;
 	public ParticleSystem DustParticles;
+	public ParticleSystem HitDustParticles;
 	public Animator MiningSelection;
 
 	[Header("Audio")]

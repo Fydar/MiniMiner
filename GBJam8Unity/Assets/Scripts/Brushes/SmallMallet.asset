@@ -21,6 +21,15 @@ MonoBehaviour:
     - Offset: {x: 0, y: 0}
       Weight: 1
   DiggingPattern:
-    Entries: []
+    Entries:
+    - Offset: {x: 0, y: 1}
+      Chance: 0
+    - Offset: {x: 1, y: 0}
+      Chance: 0
+    - Offset: {x: 1, y: 1}
+      Chance: 0
+    - Offset: {x: 0, y: 1}
+      Chance: 0
   HitSound: {fileID: 11400000, guid: bb381045b3e1d4e40aee39c69ff7d385, type: 2}
   ShakeIntencity: 1
+  HitParticles: 60
