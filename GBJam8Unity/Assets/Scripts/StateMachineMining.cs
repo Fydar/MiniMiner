@@ -119,6 +119,8 @@ public class StateMachineMining : StateMachineState
 					}
 					AudioManager.Play(brush.HitSound);
 					Setup.MiningSelection.SetTrigger("Press");
+					Setup.WorldMining.WorldCamera.GetComponent<PerlinShake>().PlayShake(brush.ShakeIntencity);
+					Setup.HitDustParticles.Emit(brush.HitParticles);
 
 					Setup.WallRenderer.RenderWall(wallData);
 				}

@@ -19,7 +19,7 @@ public class WallTileData
 			for (int y = 0; y < 16; y++)
 			{
 				float noise = Mathf.PerlinNoise((x + offset.x) * 0.3f, (y + offset.y) * 0.3f);
-				if (noise > 0.8f)
+				if (noise > 0.6f)
 				{
 					wallTile.Nodes[x, y].Layers.Rock = true;
 				}
