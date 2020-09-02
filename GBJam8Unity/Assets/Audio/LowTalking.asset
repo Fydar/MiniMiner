@@ -9,10 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf984e218d6191541b087fab07641992, type: 3}
-  m_Name: MiningMusic
+  m_Script: {fileID: 11500000, guid: 2126dc9f5bc9e8844bc4beb267998b3e, type: 3}
+  m_Name: LowTalking
   m_EditorClassIdentifier: 
   VolumeGroup: Sfx
-  Music:
-  - {fileID: 8300000, guid: e83ca43efec01d14e945ddc30960da78, type: 3}
-  Volume: 0.5
+  LoopedAudio: {fileID: 8300000, guid: 8ff4a0895b5a6fb4783df95b3fb80cbb, type: 3}
+  VolumeRange: {x: 0.5, y: 0.5}
+  PitchRange: {x: 1, y: 1}
+  PerlinSpeed: 5

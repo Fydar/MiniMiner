@@ -7,6 +7,10 @@ public class SceneSetup
 	[Header("Game Data")]
 	public MiningBrush[] StartingBrushes;
 
+	[Header("Dialogue")]
+	public DialogueSystem Dialogue;
+	public TextStyle IntroStyle1;
+
 	[Header("General")]
 	public Canvas TransitionCanvas;
 	public Transition CircleWipe;
@@ -18,6 +22,7 @@ public class SceneSetup
 	public Transition BottomToTopWipe;
 
 	[Header("Overworld")]
+	public WorldData VoidWorld;
 	public WorldData WorldOverworld;
 	public PlayerController PlayerPrefab;
 
@@ -38,12 +43,15 @@ public class SceneSetup
 
 	public void SetActiveWorld(WorldData world)
 	{
+		VoidWorld.gameObject.SetActive(false);
 		WorldOverworld.gameObject.SetActive(false);
 		WorldMining.gameObject.SetActive(false);
 
-		world.gameObject.SetActive(true);
-
-		TransitionCanvas.worldCamera = world.WorldCamera;
+		if (world != null)
+		{
+			world.gameObject.SetActive(true);
+			TransitionCanvas.worldCamera = world.WorldCamera;
+		}
 
 		CircleWipe.SetTime(0.0f);
 		SawToothWipe.SetTime(0.0f);
@@ -57,6 +65,8 @@ public class SceneSetup
 
 public class Game : MonoBehaviour
 {
+	public static Game Instance;
+
 	public SceneSetup Setup;
 	public GameState State;
 
@@ -64,6 +74,7 @@ public class Game : MonoBehaviour
 
 	private void Awake()
 	{
+		Instance = this;
 		Setup.PlayerPrefab.game = this;
 	}
 
