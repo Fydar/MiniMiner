@@ -2,8 +2,8 @@
 
 public class WallTileData
 {
-	public int WallMaxHealth = 50;
-	public int WallHealth = 50;
+	public int WallMaxHealth = 100;
+	public int WallHealth = 100;
 	public WallTileNode[,] Nodes;
 
 	public bool IsCollapsed

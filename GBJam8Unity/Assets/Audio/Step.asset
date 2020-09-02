@@ -15,5 +15,5 @@ MonoBehaviour:
   VolumeGroup: Sfx
   Clips:
   - {fileID: 8300000, guid: d50fdb6f1d6e0684283989284e20bb3a, type: 3}
-  VolumeRange: {x: 1, y: 1}
+  VolumeRange: {x: 0.6, y: 0.6}
   PitchRange: {x: 0.7, y: 0.8}

@@ -9,6 +9,7 @@ public class NoiseComponent
 	public float Frequency;
 
 	public bool UseFalloff;
+	public float FalloffDuration;
 	public AnimationCurve Falloff;
 }
 

@@ -86,7 +86,7 @@ public class StateMachineMining : StateMachineState
 
 			Setup.MiningSelection.transform.localPosition = new Vector3(SelectionPosition.x, SelectionPosition.y, 0.0f) * 0.5f;
 
-			if (Input.GetKeyDown(KeyCode.C))
+			if (Input.GetKeyDown(KeyCode.X))
 			{
 				foreach (float time in new TimedLoop(0.5f))
 				{
@@ -96,7 +96,7 @@ public class StateMachineMining : StateMachineState
 				yield return new WaitForSeconds(0.1f);
 				yield break;
 			}
-			else if (Input.GetKeyDown(KeyCode.X))
+			else if (Input.GetKeyDown(KeyCode.C))
 			{
 				var brush = Game.State.Brushes[0];
 				var randomOffset = brush.SprayPattern.GetRandomSpray();
