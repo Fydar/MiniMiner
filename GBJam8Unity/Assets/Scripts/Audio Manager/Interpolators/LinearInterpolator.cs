@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [Serializable]
-public struct LinearInterpolator : IInterpolator
+public class LinearInterpolator : IInterpolator
 {
 	public float Speed;
 

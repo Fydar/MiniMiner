@@ -12,7 +12,10 @@ public class StateMachineRoot : StateMachineState
 	public override IEnumerator StateRoutine()
 	{
 		Setup.CircleWipe.SetTime(1.0f);
-		yield return new WaitForSeconds(1.0f);
+
+		var intro = new StateMachineIntro(Game);
+		yield return StartCoroutine(intro.StateRoutine());
+
 
 		while (true)
 		{

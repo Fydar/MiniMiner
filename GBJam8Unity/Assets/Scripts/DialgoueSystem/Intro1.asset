@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8cbc1d7b9af28744aa1c3fc2531deee, type: 3}
+  m_Name: Intro1
+  m_EditorClassIdentifier: 
+  Font: {fileID: 12800000, guid: e40cee1ac77c85149b90383eff936f2e, type: 2}
+  FontSize: 7
+  color: {r: 1, g: 1, b: 1, a: 1}
+  Alignment: 0
+  Audio:
+    talkingLoop: {fileID: 11400000, guid: d310f04a513011844ad3cf7b56372229, type: 2}
+  Shake:
+    UseNoise: 0
+    Intencity: 0
+    Frequency: 0
+    UseFalloff: 0
+    Falloff:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  Animation:
+    CharactersPerTick: 1
+    DelayPerTick: 0.05
+    Exceptions:
+    - Character: 46
+      PostDelay: 0.3
+    - Character: 33
+      PostDelay: 0.3
+    - Character: 63
+      PostDelay: 0.3
