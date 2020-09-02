@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 [Serializable]
 public class SceneSetup
@@ -10,6 +11,7 @@ public class SceneSetup
 	[Header("Dialogue")]
 	public DialogueSystem Dialogue;
 	public TextStyle IntroStyle1;
+	public TextStyle IntroStyle2;
 
 	[Header("General")]
 	public Canvas TransitionCanvas;
@@ -20,6 +22,10 @@ public class SceneSetup
 	public Transition RightToLeftWipe;
 	public Transition TopToBottomWipe;
 	public Transition BottomToTopWipe;
+
+	[Header("Introduction")]
+	public Image TalkingToCharacter;
+	public PerlinShake TalkingToCharacterShake;
 
 	[Header("Overworld")]
 	public WorldData VoidWorld;

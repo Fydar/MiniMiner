@@ -25,7 +25,7 @@ public class PerlinShake : MonoBehaviour
 
 	private void Update()
 	{
-		var originalCamPos = transform.position;
+		var originalCamPos = transform.localPosition;;
 		elapsed += Time.deltaTime;
 
 		float percentComplete = elapsed / duration;
@@ -41,7 +41,7 @@ public class PerlinShake : MonoBehaviour
 		x *= damper * magnitude * intensity;
 		y *= damper * magnitude * intensity;
 
-		transform.position = new Vector3(
+		transform.localPosition = new Vector3(
 			Mathf.Round(x * 16.0f) / 16.0f,
 			Mathf.Round(y * 16.0f) / 16.0f,
 			originalCamPos.z);

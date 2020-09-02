@@ -28,7 +28,7 @@ public class StateMachineOverworld : StateMachineState
 
 		while (true)
 		{
-			if (Setup.PlayerPrefab.CanMine && Input.GetKeyDown(KeyCode.X))
+			if (Setup.PlayerPrefab.CanMine && Input.GetKeyDown(KeyCode.C))
 			{
 				Setup.PlayerPrefab.selector.SetTrigger("Press");
 
