@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-namespace Utility
+namespace GBJam8
 {
 	public class UIPool<T>
 		where T : Component
@@ -88,9 +86,14 @@ namespace Utility
 
 		private void ExpandPool(Transform parent)
 		{
-			var clone = UnityEngine.Object.Instantiate(SampleButton.gameObject, parent) as GameObject;
+			var clone = Object.Instantiate(SampleButton.gameObject, parent);
 			clone.transform.localScale = Vector3.one;
-			clone.GetComponent<RectTransform>().anchoredPosition3D = Vector3.zero;
+
+			var rectTransform = clone.GetComponent<RectTransform>();
+			if (rectTransform)
+			{
+				rectTransform.anchoredPosition3D = Vector3.zero;
+			}
 
 			var button = clone.GetComponent<T>();
 			Pool.Add(button);

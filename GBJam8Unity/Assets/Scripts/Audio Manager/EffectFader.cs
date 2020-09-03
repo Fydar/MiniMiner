@@ -5,7 +5,7 @@ public class EffectFader
 {
 	public LoopGroup Audio;
 
-	private IInterpolator Interpolator;
+	private readonly IInterpolator Interpolator;
 
 	public float Value
 	{

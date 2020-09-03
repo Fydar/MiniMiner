@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 
-public class ReturnActionGoMining
+namespace GBJam8
 {
-	public Vector3Int Target;
+	public class ReturnActionGoMining
+	{
+		public Vector3Int Target;
+	}
 }

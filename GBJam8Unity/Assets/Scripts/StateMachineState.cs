@@ -2,22 +2,23 @@
 using System.Collections;
 using UnityEngine;
 
-[Serializable]
-public abstract class StateMachineState
+namespace GBJam8
 {
-	protected Game Game;
-
-	protected SceneSetup Setup => Game.Setup;
-
-	public StateMachineState(Game game)
+	[Serializable]
+	public abstract class StateMachineState
 	{
-		Game = game;
-	}
+		protected Game Game;
 
-	public abstract IEnumerator StateRoutine();
+		public StateMachineState(Game game)
+		{
+			Game = game;
+		}
 
-	public Coroutine StartCoroutine(IEnumerator enumerator)
-	{
-		return Game.StartCoroutine(enumerator);
+		public abstract IEnumerator StateRoutine();
+
+		public Coroutine StartCoroutine(IEnumerator enumerator)
+		{
+			return Game.StartCoroutine(enumerator);
+		}
 	}
 }

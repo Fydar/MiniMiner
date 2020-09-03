@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
 
-public class WorldData : MonoBehaviour
+namespace GBJam8
 {
-	public Camera WorldCamera;
-	public Canvas WorldPrimaryCanvas;
+	public class WorldData : MonoBehaviour
+	{
+		public Camera WorldCamera;
+		public Canvas WorldPrimaryCanvas;
+	}
 }

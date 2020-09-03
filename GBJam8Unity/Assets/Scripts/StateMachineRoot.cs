@@ -1,29 +1,31 @@
 ﻿using System.Collections;
-using UnityEngine;
 
-public class StateMachineRoot : StateMachineState
+namespace GBJam8
 {
-	public StateMachineRoot(Game game)
-		: base(game)
+	public class StateMachineRoot : StateMachineState
 	{
-
-	}
-
-	public override IEnumerator StateRoutine()
-	{
-		Setup.CircleWipe.SetTime(1.0f);
-
-		var intro = new StateMachineIntro(Game);
-		yield return StartCoroutine(intro.StateRoutine());
-
-
-		while (true)
+		public StateMachineRoot(Game game)
+			: base(game)
 		{
-			var overworld = new StateMachineOverworld(Game);
-			yield return StartCoroutine(overworld.StateRoutine());
 
-			var mining = new StateMachineMining(Game);
-			yield return StartCoroutine(mining.StateRoutine());
+		}
+
+		public override IEnumerator StateRoutine()
+		{
+			Game.Setup.CircleWipe.SetTime(1.0f);
+
+			var intro = new StateMachineIntro(Game);
+			yield return StartCoroutine(intro.StateRoutine());
+
+
+			while (true)
+			{
+				var overworld = new StateMachineOverworld(Game);
+				yield return StartCoroutine(overworld.StateRoutine());
+
+				var mining = new StateMachineMining(Game);
+				yield return StartCoroutine(mining.StateRoutine());
+			}
 		}
 	}
 }

@@ -1,13 +1,16 @@
 ﻿using System;
 using UnityEngine;
 
-[Serializable]
-public class Transition
+namespace GBJam8
 {
-	public Material CircleWipe;
-
-	public void SetTime(float time)
+	[Serializable]
+	public class Transition
 	{
-		CircleWipe.SetFloat("_animateTime", Mathf.Clamp01(time));
+		public Material CircleWipe;
+
+		public void SetTime(float time)
+		{
+			CircleWipe.SetFloat("_animateTime", Mathf.Clamp01(time));
+		}
 	}
 }

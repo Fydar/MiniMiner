@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
-namespace Utility
+namespace GBJam8
 {
 	public class Screenshotter : MonoBehaviour
 	{
@@ -91,7 +91,7 @@ namespace Utility
 			}
 		}
 
-	#if UNITY_EDITOR
+#if UNITY_EDITOR
 		[InitializeOnLoad]
 		private static class EditorScreenshotter
 		{
@@ -156,7 +156,7 @@ namespace Utility
 				}
 			}
 		}
-	#endif
+#endif
 	}
 }
 #endif
