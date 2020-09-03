@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace Utility
+namespace GBJam8
 {
 	/// <summary>
 	/// Used for creating quick and easy loops inside a coroutine for an amount of seconds.

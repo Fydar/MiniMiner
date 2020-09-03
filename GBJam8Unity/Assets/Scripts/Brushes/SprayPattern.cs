@@ -1,40 +1,43 @@
 ﻿using System;
 using UnityEngine;
 
-[Serializable]
-public struct SprayEntry
+namespace GBJam8.Brushes
 {
-	public Vector2Int Offset;
-	public int Weight;
-}
-
-[Serializable]
-public class SprayPattern
-{
-	public SprayEntry[] Sprays;
-
-	public SprayEntry GetRandomSpray()
+	[Serializable]
+	public struct SprayEntry
 	{
-		if (Sprays.Length == 1)
-		{
-			return Sprays[0];
-		}
+		public Vector2Int Offset;
+		public int Weight;
+	}
 
-		int totalChance = 0;
-		int accumulator = 0;
-		foreach (var track in Sprays)
+	[Serializable]
+	public class SprayPattern
+	{
+		public SprayEntry[] Sprays;
+
+		public SprayEntry GetRandomSpray()
 		{
-			totalChance += track.Weight;
-		}
-		int randomValue = UnityEngine.Random.Range(0, totalChance);
-		foreach (var track in Sprays)
-		{
-			accumulator += track.Weight;
-			if (randomValue < accumulator)
+			if (Sprays.Length == 1)
 			{
-				return track;
+				return Sprays[0];
 			}
+
+			int totalChance = 0;
+			int accumulator = 0;
+			foreach (var track in Sprays)
+			{
+				totalChance += track.Weight;
+			}
+			int randomValue = UnityEngine.Random.Range(0, totalChance);
+			foreach (var track in Sprays)
+			{
+				accumulator += track.Weight;
+				if (randomValue < accumulator)
+				{
+					return track;
+				}
+			}
+			throw new InvalidOperationException("Something went wrong!");
 		}
-		throw new InvalidOperationException("Something went wrong!");
 	}
 }

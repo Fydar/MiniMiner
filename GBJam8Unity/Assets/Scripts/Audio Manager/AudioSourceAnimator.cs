@@ -9,7 +9,7 @@ public class AudioSourceAnimator
 
 	private readonly List<VolumeControl> controls;
 
-	private float initialVolume;
+	private readonly float initialVolume;
 	private float currentVolume;
 
 	public AudioSourceAnimator(AudioSource source, params VolumeControl[] audioGroup)
