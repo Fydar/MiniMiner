@@ -52,6 +52,14 @@ namespace GBJam8
 		public Animator MiningSelection;
 		public Transition CracksTransition;
 
+		[Space]
+		public Image CurrentEquipment;
+		public Image PreviousArrow;
+		public Image NextArrow;
+		public Image EquipmentSelector;
+		public Text CurrentEquipmentLevelText;
+		public Color Darken;
+
 		[Header("Audio")]
 		public SfxGroup NudgeSound;
 		public SfxGroup StepSound;

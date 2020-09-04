@@ -209,19 +209,19 @@ namespace GBJam8
 
 				if (Input.GetKeyDown(KeyCode.S))
 				{
-					currentlySelectedShopItem--;
-					if (currentlySelectedShopItem < 0)
+					currentlySelectedShopItem++;
+					if (currentlySelectedShopItem >= Game.Setup.Equipment.Length)
 					{
-						currentlySelectedShopItem = Game.Setup.Equipment.Length - 1;
+						currentlySelectedShopItem = 0;
 					}
 					AudioManager.Play(Game.Setup.NudgeSound);
 				}
 				else if (Input.GetKeyDown(KeyCode.W))
 				{
-					currentlySelectedShopItem++;
-					if (currentlySelectedShopItem >= Game.Setup.Equipment.Length)
+					currentlySelectedShopItem--;
+					if (currentlySelectedShopItem < 0)
 					{
-						currentlySelectedShopItem = 0;
+						currentlySelectedShopItem = Game.Setup.Equipment.Length - 1;
 					}
 					AudioManager.Play(Game.Setup.NudgeSound);
 				}
