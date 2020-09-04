@@ -16,15 +16,16 @@ namespace GBJam8
 
 		public override IEnumerator StateRoutine()
 		{
-			Setup.SetActiveWorld(Setup.WorldOverworld);
+			Game.Setup.SetActiveWorld(Game.Setup.WorldOverworld);
+			Game.Setup.CurrencyText.text = $"${Game.State.Player.Money}";
 
 			foreach (float time in new TimedLoop(0.45f))
 			{
-				Setup.CircleWipe.SetTime(1.0f - time);
+				Game.Setup.CircleWipe.SetTime(1.0f - time);
 				yield return null;
 			}
 
-			Setup.PlayerPrefab.EnableInput = true;
+			Game.Setup.PlayerPrefab.EnableInput = true;
 
 			yield return null;
 
@@ -32,42 +33,65 @@ namespace GBJam8
 			{
 				if (Input.GetKeyDown(KeyCode.C))
 				{
-					if (Setup.PlayerPrefab.CanMine)
+					if (Game.Setup.PlayerPrefab.CanMine)
 					{
-						Setup.PlayerPrefab.selector.SetTrigger("Press");
-						AudioManager.Play(Setup.NudgeSound);
+						Game.Setup.PlayerPrefab.selector.SetTrigger("Press");
+						AudioManager.Play(Game.Setup.NudgeSound);
 
-						Setup.PlayerPrefab.EnableInput = false;
-
-						ReturnAction = new ReturnActionGoMining()
+						if (Game.State.Player.HasEquipment)
 						{
-							Target = Setup.PlayerPrefab.FacingTile
-						};
+							Game.Setup.PlayerPrefab.EnableInput = false;
 
-						foreach (float time in new TimedLoop(0.5f))
-						{
-							Setup.CircleWipe.SetTime(time);
-							yield return null;
+							ReturnAction = new ReturnActionGoMining()
+							{
+								Target = Game.Setup.PlayerPrefab.FacingTile
+							};
+
+							foreach (float time in new TimedLoop(0.5f))
+							{
+								Game.Setup.CircleWipe.SetTime(time);
+								yield return null;
+							}
+							yield return new WaitForSeconds(0.1f);
+							yield break;
 						}
-						yield return new WaitForSeconds(0.1f);
-						yield break;
+						else
+						{
+							Game.Setup.PlayerPrefab.EnableInput = false;
+							Game.Setup.Dialogue.gameObject.SetActive(true);
+
+
+							Game.Setup.Dialogue.Text.Clear();
+							yield return new WaitForSeconds(0.5f);
+							Game.Setup.Dialogue.Text.SetText(Game.Setup.IntroStyle1, "I don't have any tools yet!");
+							yield return StartCoroutine(Game.Setup.Dialogue.WaitForUserInput());
+
+							Game.Setup.Dialogue.Text.Clear();
+							yield return new WaitForSeconds(0.25f);
+							Game.Setup.Dialogue.Text.SetText(Game.Setup.IntroStyle1, "Let's go visit the shop keeper!");
+							yield return StartCoroutine(Game.Setup.Dialogue.WaitForUserInput());
+
+
+							Game.Setup.Dialogue.gameObject.SetActive(false);
+							Game.Setup.PlayerPrefab.EnableInput = true;
+						}
 					}
-					else if (Setup.PlayerPrefab.CanTalkToShopKeeper)
+					else if (Game.Setup.PlayerPrefab.CanTalkToShopKeeper)
 					{
-						Setup.PlayerPrefab.selector.SetTrigger("Press");
-						AudioManager.Play(Setup.NudgeSound);
+						Game.Setup.PlayerPrefab.selector.SetTrigger("Press");
+						AudioManager.Play(Game.Setup.NudgeSound);
 
-						Setup.PlayerPrefab.EnableInput = false;
+						Game.Setup.PlayerPrefab.EnableInput = false;
 
-						Setup.TalkingToCharacter.gameObject.SetActive(true);
-						Setup.Dialogue.gameObject.SetActive(true);
+						Game.Setup.TalkingToCharacter.gameObject.SetActive(true);
+						Game.Setup.Dialogue.gameObject.SetActive(true);
 
 						yield return StartCoroutine(ShopkeeperRoutine());
 
-						Setup.TalkingToCharacter.gameObject.SetActive(false);
-						Setup.Dialogue.gameObject.SetActive(false);
+						Game.Setup.TalkingToCharacter.gameObject.SetActive(false);
+						Game.Setup.Dialogue.gameObject.SetActive(false);
 
-						Setup.PlayerPrefab.EnableInput = true;
+						Game.Setup.PlayerPrefab.EnableInput = true;
 					}
 				}
 
@@ -76,33 +100,35 @@ namespace GBJam8
 		}
 		public IEnumerator ShopkeeperRoutine()
 		{
-			Setup.Dialogue.Text.Clear();
+			Game.Setup.Dialogue.Text.Clear();
 			yield return new WaitForSeconds(0.5f);
-			Setup.Dialogue.Text.SetText(Setup.IntroStyle1, "Hay there, Adventurer!");
-			yield return StartCoroutine(Setup.Dialogue.WaitForUserInput());
+			Game.Setup.Dialogue.Text.SetText(Game.Setup.IntroStyle1, "Hay there, Adventurer!");
+			yield return StartCoroutine(Game.Setup.Dialogue.WaitForUserInput());
 
-			Setup.Dialogue.Text.Clear();
+			Game.Setup.Dialogue.Text.Clear();
 			yield return new WaitForSeconds(0.25f);
 
 			int rand = Random.Range(0, 2);
 			if (rand == 0)
 			{
-				Setup.TalkingToCharacterShake.PlayShake(1.0f);
+				Game.Setup.TalkingToCharacterShake.PlayShake(1.0f);
 
-				Setup.Dialogue.Text.SetText(Setup.IntroStyle2, "BUY MY STUFF!!!");
-				yield return StartCoroutine(Setup.Dialogue.WaitForUserInput());
+				Game.Setup.Dialogue.Text.SetText(Game.Setup.IntroStyle2, "BUY MY STUFF!!!");
+				yield return StartCoroutine(Game.Setup.Dialogue.WaitForUserInput());
 			}
 			else if (rand == 1)
 			{
-				Setup.TalkingToCharacterShake.PlayShake(1.0f);
+				Game.Setup.TalkingToCharacterShake.PlayShake(1.0f);
 
-				Setup.Dialogue.Text.SetText(Setup.IntroStyle2, "I DROPPED MY GLASSES!!!");
-				yield return StartCoroutine(Setup.Dialogue.WaitForUserInput());
+				Game.Setup.Dialogue.Text.SetText(Game.Setup.IntroStyle2, "I DROPPED MY GLASSES!!!");
+				yield return StartCoroutine(Game.Setup.Dialogue.WaitForUserInput());
 			}
+
+			Game.Setup.Dialogue.Text.Clear();
 
 			foreach (float time in new TimedLoop(0.5f))
 			{
-				Setup.ShopFader.alpha = time;
+				Game.Setup.ShopFader.alpha = time;
 				yield return null;
 			}
 
@@ -111,7 +137,74 @@ namespace GBJam8
 			{
 				if (Input.GetKeyDown(KeyCode.X))
 				{
+					AudioManager.Play(Game.Setup.NudgeSound);
 					break;
+				}
+				else if (Input.GetKeyDown(KeyCode.C))
+				{
+					AudioManager.Play(Game.Setup.NudgeSound);
+
+					var equipment = Game.Setup.Equipment[currentlySelectedShopItem];
+					var equipmentState = Game.State.Player.Equipment[equipment.Identifier];
+
+					if (equipment.Levels.Length == equipmentState.Level)
+					{
+						// Equipment is at max level
+					}
+					else
+					{
+						var nextLevelData = equipment.Levels[equipmentState.Level];
+						if (nextLevelData.Cost <= Game.State.Player.Money)
+						{
+							// Can afford to purchase
+
+							Game.Setup.Dialogue.Text.Clear();
+							yield return new WaitForSeconds(0.5f);
+							if (equipmentState.Level == 0)
+							{
+								Game.Setup.Dialogue.Text.SetText(Game.Setup.IntroStyle1, $"Would you like to buy my {equipment.DisplayName.ToUpper()}?");
+							}
+							else
+							{
+								Game.Setup.Dialogue.Text.SetText(Game.Setup.IntroStyle1, $"Would you like me to upgrade your {equipment.DisplayName.ToUpper()}?");
+							}
+							yield return StartCoroutine(Game.Setup.Dialogue.WaitForUserInput(waitOnceComplete: false));
+
+							var popup = new StateMachinePopup(Game);
+							yield return null;
+
+							yield return StartCoroutine(popup.StateRoutine(
+								new PopupOptionText()
+								{
+									Display = "Yes",
+									DefaultSelection = false
+								},
+								new PopupOptionText()
+								{
+									Display = "No",
+									DefaultSelection = true
+								}
+							));
+
+							yield return new WaitForSeconds(0.25f);
+							Game.Setup.Dialogue.Text.Clear();
+
+							if (popup.FinalSelected != null
+								&& popup.FinalSelected.Display == "Yes")
+							{
+								equipmentState.Level++;
+								Game.State.Player.Money -= nextLevelData.Cost;
+								Game.Setup.CurrencyText.text = $"${Game.State.Player.Money}";
+
+								AudioManager.Play(equipment.UpgradeSound);
+							}
+						}
+						else
+						{
+							// Cannot afford to purchase
+							AudioManager.Play(Game.Setup.NoSound);
+						}
+					}
 				}
 
 				if (Input.GetKeyDown(KeyCode.S))
@@ -119,21 +212,44 @@ namespace GBJam8
 					currentlySelectedShopItem--;
 					if (currentlySelectedShopItem < 0)
 					{
-						currentlySelectedShopItem = Setup.Equipment.Length - 1;
+						currentlySelectedShopItem = Game.Setup.Equipment.Length - 1;
 					}
+					AudioManager.Play(Game.Setup.NudgeSound);
+				}
+				else if (Input.GetKeyDown(KeyCode.W))
+				{
+					currentlySelectedShopItem++;
+					if (currentlySelectedShopItem >= Game.Setup.Equipment.Length)
+					{
+						currentlySelectedShopItem = 0;
+					}
+					AudioManager.Play(Game.Setup.NudgeSound);
 				}
 
+				for (int i = 0; i < Game.Setup.Equipment.Length; i++)
+				{
+					var equipment = Game.Setup.Equipment[i];
+					var equipmentState = Game.State.Player.Equipment[equipment.Identifier];
+
+					equipmentState.Renderer.Background.color
+						= i == currentlySelectedShopItem
+						? equipmentState.Renderer.SelectedBackgroundColor
+						: equipmentState.Renderer.NormalBackgroundColor;
+				}
 
 				yield return null;
 			}
+
+			Game.Setup.Dialogue.Text.Clear();
+			yield return new WaitForSeconds(0.5f);
+			Game.Setup.Dialogue.Text.SetText(Game.Setup.IntroStyle1, "Take care out there!");
+			yield return StartCoroutine(Game.Setup.Dialogue.WaitForUserInput());
 
 			foreach (float time in new TimedLoop(0.5f))
 			{
-				Setup.ShopFader.alpha = 1.0f - time;
+				Game.Setup.ShopFader.alpha = 1.0f - time;
 				yield return null;
 			}
-
-			yield return new WaitForSeconds(0.5f);
 		}
 	}
 }

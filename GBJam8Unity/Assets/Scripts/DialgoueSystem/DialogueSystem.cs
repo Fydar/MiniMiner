@@ -13,13 +13,20 @@ namespace GBJam8.DialgoueSystem
 		private int currentElipsisIndex = 0;
 		private float lastElipsisUpdateTime;
 
+		[Space]
+		public RectTransform PopupDialogue;
+		public RectTransform PopupDialogueOptionsHolder;
+		public PopupOptionPool PopupDialogueOptionsPool;
+
 		private void Awake()
 		{
 			WaitingInputElipsis.gameObject.SetActive(true);
+			PopupDialogue.gameObject.SetActive(false);
+
 			Text.Clear();
 		}
 
-		public IEnumerator WaitForUserInput()
+		public IEnumerator WaitForUserInput(bool waitOnceComplete = true)
 		{
 			yield return null;
 
@@ -35,33 +42,36 @@ namespace GBJam8.DialgoueSystem
 				yield return null;
 			}
 
-			WaitingInputElipsis.gameObject.SetActive(true);
-			lastElipsisUpdateTime = 0.0f;
-			currentElipsisIndex = 2;
-			while (true)
+			if (waitOnceComplete)
 			{
-				if (lastElipsisUpdateTime + ElipsisAnimationTime < Time.realtimeSinceStartup)
+				WaitingInputElipsis.gameObject.SetActive(true);
+				lastElipsisUpdateTime = 0.0f;
+				currentElipsisIndex = 2;
+				while (true)
 				{
-					currentElipsisIndex++;
-					if (currentElipsisIndex == 3)
+					if (lastElipsisUpdateTime + ElipsisAnimationTime < Time.realtimeSinceStartup)
 					{
-						currentElipsisIndex = 0;
+						currentElipsisIndex++;
+						if (currentElipsisIndex == 3)
+						{
+							currentElipsisIndex = 0;
+						}
+
+						WaitingInputElipsis.text = new string('.', currentElipsisIndex + 1);
+						lastElipsisUpdateTime = Time.realtimeSinceStartup;
 					}
 
-					WaitingInputElipsis.text = new string('.', currentElipsisIndex + 1);
-					lastElipsisUpdateTime = Time.realtimeSinceStartup;
+					if (Input.GetKeyDown(KeyCode.X)
+						|| Input.GetKeyDown(KeyCode.C))
+					{
+						break;
+					}
+					yield return null;
 				}
+				WaitingInputElipsis.gameObject.SetActive(false);
 
-				if (Input.GetKeyDown(KeyCode.X)
-					|| Input.GetKeyDown(KeyCode.C))
-				{
-					break;
-				}
-				yield return null;
+				AudioManager.Play(Game.Instance.Setup.NudgeSound);
 			}
-			WaitingInputElipsis.gameObject.SetActive(false);
-
-			AudioManager.Play(Game.Instance.Setup.NudgeSound);
 		}
 	}
 }

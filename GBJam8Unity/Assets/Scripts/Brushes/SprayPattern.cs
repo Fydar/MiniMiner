@@ -14,6 +14,7 @@ namespace GBJam8.Brushes
 	public class SprayPattern
 	{
 		public SprayEntry[] Sprays;
+		public bool ResprayPerDig = false;
 
 		public SprayEntry GetRandomSpray()
 		{

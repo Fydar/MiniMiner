@@ -20,6 +20,9 @@ namespace GBJam8
 
 		[Space]
 		public CanvasGroup ShopFader;
+		public Text CurrencyText;
+		public RectTransform EquipmentShopHolder;
+		public EquipmentShopRendererPool EquipmentShopRendererPool;
 
 		[Header("General")]
 		public Canvas TransitionCanvas;
@@ -81,8 +84,9 @@ namespace GBJam8
 	{
 		public static Game Instance;
 
-		public SceneSetup Setup;
+		[NonSerialized]
 		public GameState State;
+		public SceneSetup Setup;
 
 		private StateMachineRoot rootState;
 
@@ -95,7 +99,18 @@ namespace GBJam8
 
 		private void Start()
 		{
-			State = new GameState();
+			State = new GameState(Setup);
+
+			Setup.EquipmentShopRendererPool.Flush();
+			foreach (var equipment in Setup.Equipment)
+			{
+				var equipmentState = State.Player.Equipment[equipment.Identifier];
+
+				var renderer = Setup.EquipmentShopRendererPool.Grab(Setup.EquipmentShopHolder);
+
+				renderer.Setup(equipment, equipmentState);
+				equipmentState.Renderer = renderer;
+			}
 
 			rootState = new StateMachineRoot(this);
 			StartCoroutine(rootState.StateRoutine());

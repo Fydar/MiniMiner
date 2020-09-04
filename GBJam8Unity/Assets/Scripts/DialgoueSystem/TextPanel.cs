@@ -4,21 +4,6 @@ using UnityEngine.UI;
 
 namespace GBJam8.DialgoueSystem
 {
-	public class CoroutineHelper : MonoBehaviour
-	{
-		public static void Start(IEnumerator enumerator)
-		{
-			var clone = new GameObject("Coroutine");
-			var comp = clone.AddComponent<CoroutineHelper>();
-			comp.RunCoroutine(enumerator);
-		}
-
-		public void RunCoroutine(IEnumerator enumerator)
-		{
-			StartCoroutine(enumerator);
-		}
-	}
-
 	public class TextPanel : MonoBehaviour
 	{
 		public Text TextElement;

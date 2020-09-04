@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c68afc8b2bbbbab45bec23cf50a31d95, type: 3}
+  m_Name: Chisel
+  m_EditorClassIdentifier: 
+  Identifier: chisel
+  DisplayName: Chisel
+  UpgradeSound: {fileID: 11400000, guid: ff5def3d340b9ee4189581ca93c51564, type: 2}
+  TinyIcon: {fileID: 21300000, guid: 3e9871f968c93754683ca447cabc340c, type: 3}
+  SmallIcon: {fileID: 21300000, guid: 84952cc2401fd2c42a4e3bdf14fbf187, type: 3}
+  StartingLevel: 0
+  Levels:
+  - Cost: 0
+    Brush: {fileID: 11400000, guid: 61815cb9c0087494b99085bb6311010e, type: 2}
+  - Cost: 50
+    Brush: {fileID: 11400000, guid: 5bc7f100b810e1044a49f07cb5dd8790, type: 2}

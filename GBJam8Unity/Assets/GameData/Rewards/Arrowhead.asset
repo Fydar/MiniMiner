@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 853cdff32e9ac4b448420afd185480b4, type: 3}
+  m_Name: Arrowhead
+  m_EditorClassIdentifier: 
+  IconGraphic: {fileID: 21300000, guid: 56338d8708ac37b49b47775264f85fca, type: 3}
+  MiningGraphic: {fileID: 21300000, guid: 56338d8708ac37b49b47775264f85fca, type: 3}
+  FindSound: {fileID: 11400000, guid: ff5def3d340b9ee4189581ca93c51564, type: 2}
+  DigPositions:
+  - Offset: {x: 0, y: 0}
+  - Offset: {x: 0, y: 1}
+  - Offset: {x: 0, y: 2}
+  ChanceOfApperence: 1
+  MinimumGems: 2

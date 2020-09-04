@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GBJam8.DialgoueSystem;
+using System;
 
 namespace GBJam8.State
 {
@@ -6,6 +7,7 @@ namespace GBJam8.State
 	public class EquipmentState
 	{
 		public int Level;
+		public EquipmentShopRenderer Renderer;
 
 		// public int TilesDestroyed;
 		// public int RewardsFound;
