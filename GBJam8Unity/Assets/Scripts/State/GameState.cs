@@ -11,6 +11,7 @@ namespace GBJam8.State
 		public Vector2 Position;
 		public Vector2Int Heading;
 		public Dictionary<string, EquipmentState> Equipment;
+		public int SelectedEquipment;
 
 		private SceneSetup setup;
 
