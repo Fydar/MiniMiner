@@ -7,6 +7,11 @@ namespace GBJam8
 	{
 		public string Identifier;
 		public string DisplayName;
+		public SfxGroup UpgradeSound;
+
+		[Space]
+		public Sprite TinyIcon;
+		public Sprite SmallIcon;
 
 		[Space]
 		public int StartingLevel = -1;

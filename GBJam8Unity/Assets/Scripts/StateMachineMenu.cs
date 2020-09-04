@@ -13,12 +13,12 @@ namespace GBJam8
 
 		public override IEnumerator StateRoutine()
 		{
-			Setup.CircleWipe.SetTime(1.0f);
+			Game.Setup.CircleWipe.SetTime(1.0f);
 			yield return new WaitForSeconds(1.0f);
 
 			foreach (float time in new TimedLoop(2.0f))
 			{
-				Setup.CircleWipe.SetTime(1.0f - time);
+				Game.Setup.CircleWipe.SetTime(1.0f - time);
 				yield return null;
 			}
 

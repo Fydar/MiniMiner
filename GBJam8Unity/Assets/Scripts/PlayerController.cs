@@ -126,6 +126,7 @@ namespace GBJam8
 			if (!willCollide)
 			{
 				transform.position = transform.position + new Vector3(movement.x, movement.y, 0.0f);
+				game.State.Player.Position = new Vector2(transform.position.x, transform.position.y);
 			}
 		}
 

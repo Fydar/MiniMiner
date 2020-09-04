@@ -103,13 +103,18 @@ namespace GBJam8
 				else if (Input.GetKeyDown(KeyCode.C))
 				{
 					var equipment = Game.Setup.Equipment[selectedEquipmentIndex];
-					int equipmentLevel = Game.State.Equipment[equipment.Identifier].Level;
+					int equipmentLevel = Game.State.Player.Equipment[equipment.Identifier].Level;
 
-					var brush = equipment.Levels[equipmentLevel].Brush;
+					var brush = equipment.Levels[equipmentLevel - 1].Brush;
 					var randomOffset = brush.SprayPattern.GetRandomSpray();
 
 					foreach (float digTime in brush.Digs)
 					{
+						if (brush.SprayPattern.ResprayPerDig)
+						{
+							randomOffset = brush.SprayPattern.GetRandomSpray();
+						}
+
 						yield return new WaitForSeconds(digTime);
 
 						int digSelectionCount = Random.Range(brush.DiggingPattern.MinimumDigs, brush.DiggingPattern.MaximumDigs + 1);
@@ -121,6 +126,18 @@ namespace GBJam8
 							var digPos = SelectionPosition
 								+ new Vector2Int(digLocation.Offset.x, digLocation.Offset.y)
 								+ randomOffset.Offset;
+
+							if (digPos.x < 0
+								|| digPos.y < 0
+								|| digPos.x >= 22
+								|| digPos.y >= 16)
+							{
+								if (!brush.DiggingPattern.IsSmartBrush)
+								{
+									performedDigs++;
+								}
+   								continue;
+							}
 
 							var current = wallData.Nodes[digPos.x, digPos.y];
 
@@ -192,17 +209,17 @@ namespace GBJam8
 								Game.Setup.WallRenderer.RenderWall(wallData);
 							}
 						}
+					}
 
-						if (wallData.IsCollapsed)
+					if (wallData.IsCollapsed)
+					{
+						foreach (float time in new TimedLoop(0.5f))
 						{
-							foreach (float time in new TimedLoop(0.5f))
-							{
-								Game.Setup.CircleWipe.SetTime(time);
-								yield return null;
-							}
-							yield return new WaitForSeconds(0.1f);
-							yield break;
+							Game.Setup.CircleWipe.SetTime(time);
+							yield return null;
 						}
+						yield return new WaitForSeconds(0.1f);
+						yield break;
 					}
 				}
 

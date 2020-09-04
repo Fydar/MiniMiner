@@ -1,17 +1,59 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace GBJam8.State
 {
-	public class GameState
+	[Serializable]
+	public class PlayerState
 	{
-		public Dictionary<string, WallTileData> WallTiles;
+		public int Money;
+		public Vector2 Position;
+		public Vector2Int Heading;
 		public Dictionary<string, EquipmentState> Equipment;
 
-		public GameState()
+		private SceneSetup setup;
+
+		public bool HasEquipment
 		{
-			WallTiles = new Dictionary<string, WallTileData>();
+			get
+			{
+				foreach (var equipment in Equipment)
+				{
+					if (equipment.Value.Level > 0)
+					{
+						return true;
+					}
+				}
+				return false;
+			}
+		}
+
+		public PlayerState(SceneSetup setup)
+		{
+			this.setup = setup;
+
 			Equipment = new Dictionary<string, EquipmentState>();
+			foreach (var equipment in setup.Equipment)
+			{
+				Equipment[equipment.Identifier] = new EquipmentState()
+				{
+					Level = equipment.StartingLevel
+				};
+			}
+		}
+	}
+
+	[Serializable]
+	public class GameState
+	{
+		public PlayerState Player;
+		public Dictionary<string, WallTileData> WallTiles;
+
+		public GameState(SceneSetup setup)
+		{
+			Player = new PlayerState(setup);
+			WallTiles = new Dictionary<string, WallTileData>();
 		}
 
 		public WallTileData GetOrGenerate(Vector3Int position)
