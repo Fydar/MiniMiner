@@ -108,29 +108,100 @@ namespace GBJam8
 			Game.Setup.Dialogue.Text.Clear();
 			yield return new WaitForSeconds(0.25f);
 
-			int rand = Random.Range(0, 2);
-			if (rand == 0)
+			if (Game.State.Player.BagCapacity > 0)
 			{
+				int rand = Random.Range(0, 2);
 				Game.Setup.TalkingToCharacterShake.PlayShake(1.0f);
-
-				Game.Setup.Dialogue.Text.SetText(Game.Setup.IntroStyle2, "BUY MY STUFF!!!");
-				yield return StartCoroutine(Game.Setup.Dialogue.WaitForUserInput());
+				if (rand == 0)
+				{
+					Game.Setup.Dialogue.Text.SetText(Game.Setup.IntroStyle2, "BUY MY STUFF!!!");
+				}
+				else if (rand == 1)
+				{
+					Game.Setup.Dialogue.Text.SetText(Game.Setup.IntroStyle2, "I DROPPED MY GLASSES!!!");
+				}
 			}
-			else if (rand == 1)
+			else
 			{
-				Game.Setup.TalkingToCharacterShake.PlayShake(1.0f);
-
-				Game.Setup.Dialogue.Text.SetText(Game.Setup.IntroStyle2, "I DROPPED MY GLASSES!!!");
-				yield return StartCoroutine(Game.Setup.Dialogue.WaitForUserInput());
+				Game.Setup.Dialogue.Text.SetText(Game.Setup.IntroStyle1, "What do you have for me?");
 			}
 
+			yield return StartCoroutine(Game.Setup.Dialogue.WaitForUserInput());
 			Game.Setup.Dialogue.Text.Clear();
 
-			foreach (float time in new TimedLoop(0.5f))
+			if (Game.State.Player.BagCapacity > 0)
 			{
-				Game.Setup.ShopFader.alpha = time;
-				yield return null;
+				Game.Setup.RewardTab.gameObject.SetActive(true);
+				Game.Setup.EquipmentTab.gameObject.SetActive(false);
+
+				foreach (float time in new TimedLoop(0.5f))
+				{
+					Game.Setup.ShopFader.alpha = time;
+					yield return null;
+				}
+
+				foreach (var item in Game.State.Player.Bag)
+				{
+					Game.Setup.RewardGraphic.sprite = item.Key.IconGraphic;
+					Game.Setup.RewardQuantity.text = $"x{item.Value}";
+					Game.Setup.RewardValueCounter.text = $"${item.Key.CurrencyValue}";
+
+					foreach (var text in Game.Setup.RewardName)
+					{
+						text.text = item.Key.DisplayName;
+					}
+
+					Game.Setup.RewardGraphic.gameObject.SetActive(false);
+					Game.Setup.RewardDetails.gameObject.SetActive(false);
+
+					yield return new WaitForSeconds(0.5f);
+
+					Game.Setup.RewardGraphic.gameObject.SetActive(true);
+
+					yield return new WaitForSeconds(0.5f);
+
+					Game.Setup.RewardDetails.gameObject.SetActive(true);
+
+					Game.Setup.RewardStarPool.Flush();
+					for (int i = 0; i < item.Key.StarRating; i++)
+					{
+						yield return new WaitForSeconds(0.5f);
+						Game.Setup.RewardStarPool.Grab(Game.Setup.RewardStarHolder);
+					}
+
+					while (true)
+					{
+						if (Input.GetKeyDown(KeyCode.C)
+							|| Input.GetKeyDown(KeyCode.X))
+						{
+							break;
+						}
+						yield return null;
+					}
+					yield return null;
+
+					Game.State.Player.Money += item.Key.CurrencyValue * item.Value;
+					Game.Setup.CurrencyText.text = $"${Game.State.Player.Money}";
+
+					if (Game.Setup.CollectSound != null)
+					{
+						AudioManager.Play(Game.Setup.CollectSound);
+					}
+				}
+				Game.State.Player.Bag.Clear();
 			}
+			else
+			{
+				foreach (float time in new TimedLoop(0.5f))
+				{
+					Game.Setup.ShopFader.alpha = time;
+					yield return null;
+				}
+			}
+			yield return null;
+
+			Game.Setup.RewardTab.gameObject.SetActive(false);
+			Game.Setup.EquipmentTab.gameObject.SetActive(true);
 
 			int currentlySelectedShopItem = 0;
 			while (true)
@@ -157,6 +228,14 @@ namespace GBJam8
 						if (nextLevelData.Cost <= Game.State.Player.Money)
 						{
 							// Can afford to purchase
+							for (int i = 0; i < Game.Setup.Equipment.Length; i++)
+							{
+								var otherEquipment = Game.Setup.Equipment[i];
+								var otherEquipmentState = Game.State.Player.Equipment[otherEquipment.Identifier];
+
+								otherEquipmentState.Renderer.Background.color
+									= otherEquipmentState.Renderer.NormalBackgroundColor;
+							}
 
 							Game.Setup.Dialogue.Text.Clear();
 							yield return new WaitForSeconds(0.5f);
@@ -197,6 +276,19 @@ namespace GBJam8
 								Game.Setup.CurrencyText.text = $"${Game.State.Player.Money}";
 
 								AudioManager.Play(equipment.UpgradeSound);
+
+								yield return new WaitForSeconds(0.8f);
+							}
+
+							for (int i = 0; i < Game.Setup.Equipment.Length; i++)
+							{
+								var otherEquipment = Game.Setup.Equipment[i];
+								var otherEquipmentState = Game.State.Player.Equipment[otherEquipment.Identifier];
+
+								otherEquipmentState.Renderer.Background.color
+									= i == currentlySelectedShopItem
+									? otherEquipmentState.Renderer.SelectedBackgroundColor
+									: otherEquipmentState.Renderer.NormalBackgroundColor;
 							}
 						}
 						else

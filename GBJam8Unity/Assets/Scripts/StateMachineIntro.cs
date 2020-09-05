@@ -24,6 +24,9 @@ namespace GBJam8
 			Game.Setup.TalkingToCharacter.gameObject.SetActive(true);
 			Game.Setup.TalkingToCharacterShake.PlayShake(1.0f);
 
+			Game.Setup.IntroMusic.Play();
+
+
 			Game.Setup.Dialogue.Text.SetText(Game.Setup.IntroStyle2, "HOWDY!!!");
 			yield return StartCoroutine(Game.Setup.Dialogue.WaitForUserInput());
 
@@ -75,6 +78,7 @@ namespace GBJam8
 
 			yield return StartCoroutine(IntroDialogue());
 
+			Game.Setup.IntroMusic.Stop();
 
 			foreach (float time in new TimedLoop(0.5f))
 			{

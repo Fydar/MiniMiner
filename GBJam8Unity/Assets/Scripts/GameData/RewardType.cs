@@ -6,6 +6,9 @@ namespace GBJam8
 	[CreateAssetMenu]
 	public class RewardType : ScriptableObject
 	{
+		public int CurrencyValue;
+		public int StarRating;
+		public string DisplayName;
 		public Sprite IconGraphic;
 		public Sprite MiningGraphic;
 		public SfxGroup FindSound;
