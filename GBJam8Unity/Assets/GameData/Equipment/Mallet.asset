@@ -19,5 +19,9 @@ MonoBehaviour:
   SmallIcon: {fileID: 21300000, guid: aa0d5ec9441384a49b2d3c1449452659, type: 3}
   StartingLevel: 0
   Levels:
+  - Cost: 0
+    Brush: {fileID: 11400000, guid: 2d60d026105735f41998a500034c2558, type: 2}
   - Cost: 25
     Brush: {fileID: 11400000, guid: 2d60d026105735f41998a500034c2558, type: 2}
+  - Cost: 100
+    Brush: {fileID: 11400000, guid: f677a4d20c0803b4ba249da46af21790, type: 2}

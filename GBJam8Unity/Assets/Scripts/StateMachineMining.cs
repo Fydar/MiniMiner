@@ -40,6 +40,14 @@ namespace GBJam8
 				: Color.white;
 		}
 
+		private void UpdateBag()
+		{
+			foreach (var label in Game.Setup.BagCapacity)
+			{
+				label.text = $"{Game.State.Player.BagCapacity}/ {Game.State.Player.MaxBagCapacity}";
+			}
+		}
+
 		public override IEnumerator StateRoutine()
 		{
 			Game.Setup.MiningSelection.gameObject.SetActive(false);
@@ -52,6 +60,7 @@ namespace GBJam8
 			Game.Setup.CracksTransition.SetTime(1.0f - wallCracksTime);
 
 			UpdateEquipmentUI();
+			UpdateBag();
 
 			foreach (float time in new TimedLoop(0.45f))
 			{
@@ -313,6 +322,16 @@ namespace GBJam8
 
 										reward.Claimed = true;
 										wallData.Rewards[i] = reward;
+
+										if (Game.State.Player.Bag.ContainsKey(reward.Type))
+										{
+											Game.State.Player.Bag[reward.Type]++;
+										}
+										else
+										{
+											Game.State.Player.Bag[reward.Type] = 1;
+										}
+										UpdateBag();
 
 										Game.Setup.WallRenderer.RenderWall(wallData);
 									}

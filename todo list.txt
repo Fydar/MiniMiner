@@ -1,0 +1,22 @@
+
+
+MUST
+
+- [X] Main Menu
+- [ ] Reward Flow at Shop
+- [ ] Shopkeeper Sprite
+- [ ] Finalised Equipment List
+- [ ] Collide with Decorations
+
+SHOULD
+
+- [ ] New Input System
+- [ ] Controller Support
+- [ ] Area Unlocking
+- [ ] Ladder to End-of-game?
+- [ ] Biomes and new reward types and generation
+
+COULD
+
+- [ ] Pause Menu with Volume and Color Pallete
+

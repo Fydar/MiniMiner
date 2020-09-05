@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 853cdff32e9ac4b448420afd185480b4, type: 3}
   m_Name: Plate
   m_EditorClassIdentifier: 
+  CurrencyValue: 15
+  StarRating: 2
+  DisplayName: POTTERY SHARD
   IconGraphic: {fileID: 21300000, guid: c8e954d3dc2950f47a9e9b988dc009f7, type: 3}
   MiningGraphic: {fileID: 21300000, guid: c8e954d3dc2950f47a9e9b988dc009f7, type: 3}
   FindSound: {fileID: 11400000, guid: ff5def3d340b9ee4189581ca93c51564, type: 2}
