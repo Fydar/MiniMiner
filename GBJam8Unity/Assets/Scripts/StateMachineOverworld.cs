@@ -137,12 +137,11 @@ namespace GBJam8
 						AudioManager.Play(Game.Setup.NudgeSound);
 						Game.Setup.PlayerPrefab.EnableInput = false;
 
-						Game.Setup.TalkingToCharacter.gameObject.SetActive(true);
+						Game.Setup.TalkingToCharacter.gameObject.SetActive(false);
 						Game.Setup.Dialogue.gameObject.SetActive(true);
 
 						yield return StartCoroutine(BoulderInteractionRoutine());
 
-						Game.Setup.TalkingToCharacter.gameObject.SetActive(false);
 						Game.Setup.Dialogue.gameObject.SetActive(false);
 
 						Game.Setup.PlayerPrefab.EnableInput = true;
