@@ -76,10 +76,18 @@ namespace GBJam8.State
 			}
 			else
 			{
-				float surfaceSensitivity = 0.35f;
+				float surfaceSensitivity;
 				if (rarity == "rarity-2")
 				{
-					surfaceSensitivity = 0.2f;
+					surfaceSensitivity = 0.75f;
+				}
+				else if (rarity == "rarity-3")
+				{
+					surfaceSensitivity = 0.55f;
+				}
+				else
+				{
+					surfaceSensitivity = 0.35f;
 				}
 
 				offset = new Vector2(Random.value * 1000, Random.value * 1000);
