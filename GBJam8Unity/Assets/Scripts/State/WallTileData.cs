@@ -43,12 +43,12 @@ namespace GBJam8.State
 		{
 			var wallTile = new WallTileData();
 
-			var offset = new Vector2(Random.value, Random.value);
+			var offset = new Vector2(Random.value * 1000, Random.value * 1000);
 			for (int x = 0; x < 22; x++)
 			{
 				for (int y = 0; y < 16; y++)
 				{
-					float noise = Mathf.PerlinNoise((x + offset.x) * 0.3f, (y + offset.y) * 0.3f);
+					float noise = Mathf.PerlinNoise((x * 0.3f) + offset.x, (y * 0.3f) + offset.y);
 					if (noise > 0.5f)
 					{
 						wallTile.Nodes[x, y].Layers.Rock = true;
@@ -58,14 +58,14 @@ namespace GBJam8.State
 
 			if (rarity == "rarity-1")
 			{
-				offset = new Vector2(Random.value * 1000, Random.value);
+				offset = new Vector2(Random.value * 1000, Random.value * 1000);
 				for (int x = 0; x < 22; x++)
 				{
 					for (int y = 0; y < 16; y++)
 					{
 						if (!wallTile.Nodes[x, y].Layers.Rock)
 						{
-							float noise = Mathf.PerlinNoise((x + offset.x) * 0.175f, (y + offset.y) * 0.175f);
+							float noise = Mathf.PerlinNoise((x * 0.175f) + offset.x, (y * 0.175f) + offset.y);
 							if (noise > 0.4f)
 							{
 								wallTile.Nodes[x, y].Layers.Gravel = true;
@@ -76,12 +76,18 @@ namespace GBJam8.State
 			}
 			else
 			{
-				offset = new Vector2(Random.value * 1000, Random.value);
+				float surfaceSensitivity = 0.35f;
+				if (rarity == "rarity-2")
+				{
+					surfaceSensitivity = 0.2f;
+				}
+
+				offset = new Vector2(Random.value * 1000, Random.value * 1000);
 				for (int x = 0; x < 22; x++)
 				{
 					for (int y = 0; y < 16; y++)
 					{
-						float noise = Mathf.PerlinNoise((x + offset.x) * 0.25f, (y + offset.y) * 0.25f);
+						float noise = Mathf.PerlinNoise((x * 0.25f) + offset.x, (y * 0.25f) + offset.y);
 						if (!wallTile.Nodes[x, y].Layers.Rock)
 						{
 							if (noise > 0.2f)
@@ -89,7 +95,7 @@ namespace GBJam8.State
 								wallTile.Nodes[x, y].Layers.Gravel = true;
 							}
 						}
-						if (noise > 0.35f)
+						if (noise > surfaceSensitivity)
 						{
 							wallTile.Nodes[x, y].Layers.Surface = true;
 						}

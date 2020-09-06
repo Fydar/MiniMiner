@@ -120,6 +120,7 @@ namespace GBJam8
 		public SfxGroup CollectAllSound;
 		public SfxGroup UIAppearSound;
 		public SfxGroup StarAppearSound;
+		public SfxGroup BoulderBreak;
 
 		public void SetActiveWorld(WorldData world)
 		{
