@@ -15,7 +15,7 @@ MonoBehaviour:
   Font: {fileID: 12800000, guid: e40cee1ac77c85149b90383eff936f2e, type: 2}
   FontSize: 7
   color: {r: 1, g: 1, b: 1, a: 1}
-  Alignment: 0
+  Alignment: 3
   Audio:
     talkingLoop: {fileID: 11400000, guid: d310f04a513011844ad3cf7b56372229, type: 2}
   Shake:
@@ -23,6 +23,7 @@ MonoBehaviour:
     Intencity: 0
     Frequency: 0
     UseFalloff: 0
+    FalloffDuration: 0
     Falloff:
       serializedVersion: 2
       m_Curve: []

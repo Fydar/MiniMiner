@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 853cdff32e9ac4b448420afd185480b4, type: 3}
   m_Name: Geode
   m_EditorClassIdentifier: 
-  CurrencyValue: 30
+  CurrencyValue: 35
   StarRating: 3
   DisplayName: GEODE
   IconGraphic: {fileID: 21300000, guid: 9ca94bbdaf0a0e644a9e3a6b2997bea3, type: 3}

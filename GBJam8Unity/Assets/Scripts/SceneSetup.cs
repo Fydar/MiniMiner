@@ -1,6 +1,7 @@
 ﻿using GBJam8.DialgoueSystem;
 using System;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
 namespace GBJam8
@@ -10,7 +11,11 @@ namespace GBJam8
 	{
 		[Header("Game Data")]
 		public EquipmentItemTemplate[] Equipment;
-		public RewardType[] Rewards;
+		public RewardType[] Rarity1Rewards;
+		public RewardType[] Rarity2Rewards;
+		public RewardType[] Rarity3Rewards;
+		public RewardType[] Rarity4Rewards;
+		public RewardType[] Rarity5Rewards;
 
 		[Header("Dialogue")]
 		public DialogueSystem Dialogue;
@@ -36,6 +41,14 @@ namespace GBJam8
 		public RectTransform EquipmentTab;
 		public RectTransform EquipmentShopHolder;
 		public EquipmentShopRendererPool EquipmentShopRendererPool;
+
+		[Header("Interaction Shop")]
+		public RectTransform InteractionShop;
+		public Text InteractionShopCurrencyText;
+
+		[Header("World")]
+		public Tilemap RarityMap;
+		public TileBase[] RarityTiles;
 
 		[Header("General")]
 		public Canvas TransitionCanvas;
@@ -103,6 +116,10 @@ namespace GBJam8
 		public SfxGroup NoSound;
 		public SfxGroup OkaySound;
 		public SfxGroup CollectSound;
+		public SfxGroup CollapseSound;
+		public SfxGroup CollectAllSound;
+		public SfxGroup UIAppearSound;
+		public SfxGroup StarAppearSound;
 
 		public void SetActiveWorld(WorldData world)
 		{

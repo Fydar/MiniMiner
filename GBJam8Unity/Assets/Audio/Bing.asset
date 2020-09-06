@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   VolumeGroup: Sfx
   Clips:
-  - {fileID: 8300000, guid: c274008fd22316b4eb0f1e960535a33a, type: 3}
+  - {fileID: 8300000, guid: eeb6cb0fd0f2ed74ab457aec065c0fc8, type: 3}
   VolumeRange: {x: 1, y: 1}
   PitchRange: {x: 1, y: 1}

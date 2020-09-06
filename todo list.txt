@@ -4,19 +4,20 @@ MUST
 
 - [X] Main Menu
 - [X] Shopkeeper Sprite
-- [50%] Reward Flow at Shop
-- [50%] Finalised Equipment List
-- [ ] Collide with Decorations
-- [ ] Wall Collapsing
-- [ ] WebGL template and build
+- [X] Reward Flow at Shop
+- [X] Finalised Equipment List
+- [X] Collide with Decorations
+- [X] Wall Collapsing
+- [x] WebGL template and build
 
 SHOULD
 
+- [ ] All rewards collected bootout
 - [ ] New Input System
 - [ ] Controller Support
-- [ ] Area Unlocking
+- [X] Area Unlocking
 - [ ] Ladder to End-of-game?
-- [ ] Biomes and new reward types and generation
+- [X] Biomes and new reward types and generation
 
 COULD
 
