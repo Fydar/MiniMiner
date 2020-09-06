@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f32f1a723389e924f847630d41fa4976, type: 3}
-  m_Name: MalletL2
+  m_Name: MalletL3
   m_EditorClassIdentifier: 
-  MinimumWallDamage: 18
-  MaximumWallDamage: 18
+  MinimumWallDamage: 15
+  MaximumWallDamage: 15
   Digs:
   - 0
   SprayPattern:
@@ -23,10 +23,28 @@ MonoBehaviour:
     ResprayPerDig: 0
   DiggingPattern:
     Entries:
-    - Offset: {x: -2, y: 2}
-      Chance: 0.25
+    - Offset: {x: -2, y: 3}
+      Chance: 1
       LayerFudge: 1
-    - Offset: {x: 1, y: 2}
+    - Offset: {x: -1, y: 3}
+      Chance: 1
+      LayerFudge: 1
+    - Offset: {x: 0, y: 3}
+      Chance: 1
+      LayerFudge: 1
+    - Offset: {x: 1, y: 3}
+      Chance: 1
+      LayerFudge: 1
+    - Offset: {x: 2, y: 3}
+      Chance: 1
+      LayerFudge: 1
+    - Offset: {x: 3, y: 3}
+      Chance: 1
+      LayerFudge: 1
+    - Offset: {x: -2, y: 2}
+      Chance: 1
+      LayerFudge: 1
+    - Offset: {x: -1, y: 2}
       Chance: 1
       LayerFudge: 1
     - Offset: {x: 0, y: 2}
@@ -36,70 +54,85 @@ MonoBehaviour:
       Chance: 1
       LayerFudge: 1
     - Offset: {x: 2, y: 2}
-      Chance: 0.25
-      LayerFudge: 0
+      Chance: 1
+      LayerFudge: 1
+    - Offset: {x: 3, y: 2}
+      Chance: 1
+      LayerFudge: 1
     - Offset: {x: -2, y: 1}
       Chance: 1
-      LayerFudge: 0
+      LayerFudge: 1
     - Offset: {x: -1, y: 1}
       Chance: 1
-      LayerFudge: 0
+      LayerFudge: 1
     - Offset: {x: 0, y: 1}
       Chance: 1
-      LayerFudge: 0
+      LayerFudge: 1
     - Offset: {x: 1, y: 1}
       Chance: 1
-      LayerFudge: 0
+      LayerFudge: 1
     - Offset: {x: 2, y: 1}
       Chance: 1
-      LayerFudge: 0
+      LayerFudge: 1
+    - Offset: {x: 3, y: 1}
+      Chance: 1
+      LayerFudge: 1
     - Offset: {x: -2, y: 0}
       Chance: 1
-      LayerFudge: 0
+      LayerFudge: 1
     - Offset: {x: -1, y: 0}
       Chance: 1
-      LayerFudge: 0
+      LayerFudge: 1
     - Offset: {x: 0, y: 0}
       Chance: 1
-      LayerFudge: 0
+      LayerFudge: 1
     - Offset: {x: 1, y: 0}
       Chance: 1
-      LayerFudge: 0
+      LayerFudge: 1
     - Offset: {x: 2, y: 0}
       Chance: 1
-      LayerFudge: 0
+      LayerFudge: 1
+    - Offset: {x: 3, y: 0}
+      Chance: 1
+      LayerFudge: 1
     - Offset: {x: -2, y: -1}
       Chance: 1
-      LayerFudge: 0
+      LayerFudge: 1
     - Offset: {x: -1, y: -1}
       Chance: 1
-      LayerFudge: 0
+      LayerFudge: 1
     - Offset: {x: 0, y: -1}
       Chance: 1
-      LayerFudge: 0
+      LayerFudge: 1
     - Offset: {x: 1, y: -1}
       Chance: 1
-      LayerFudge: 0
+      LayerFudge: 1
     - Offset: {x: 2, y: -1}
       Chance: 1
-      LayerFudge: 0
+      LayerFudge: 1
+    - Offset: {x: 3, y: -1}
+      Chance: 1
+      LayerFudge: 1
     - Offset: {x: -2, y: -2}
-      Chance: 0.25
-      LayerFudge: 0
+      Chance: 1
+      LayerFudge: 1
     - Offset: {x: -1, y: -2}
       Chance: 1
-      LayerFudge: 0
+      LayerFudge: 1
     - Offset: {x: 0, y: -2}
       Chance: 1
-      LayerFudge: 0
+      LayerFudge: 1
     - Offset: {x: 1, y: -2}
       Chance: 1
-      LayerFudge: 0
+      LayerFudge: 1
     - Offset: {x: 2, y: -2}
-      Chance: 0.25
-      LayerFudge: 0
-    MinimumDigs: 16
-    MaximumDigs: 20
+      Chance: 1
+      LayerFudge: 1
+    - Offset: {x: 3, y: -2}
+      Chance: 1
+      LayerFudge: 1
+    MinimumDigs: 24
+    MaximumDigs: 28
     IsSmartBrush: 0
   HitSound: {fileID: 11400000, guid: bb381045b3e1d4e40aee39c69ff7d385, type: 2}
   ShakeIntencity: 1

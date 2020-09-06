@@ -22,6 +22,6 @@ MonoBehaviour:
   - Cost: 0
     Brush: {fileID: 11400000, guid: 2d60d026105735f41998a500034c2558, type: 2}
   - Cost: 25
-    Brush: {fileID: 11400000, guid: 2d60d026105735f41998a500034c2558, type: 2}
-  - Cost: 100
     Brush: {fileID: 11400000, guid: f677a4d20c0803b4ba249da46af21790, type: 2}
+  - Cost: 25
+    Brush: {fileID: 11400000, guid: dd9b087d10c995340ad76489c2090faf, type: 2}

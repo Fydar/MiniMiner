@@ -42548,6 +42548,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 21e4714e51c4d9a4482b0ff70a311d9f, type: 2}
     - {fileID: 11400000, guid: 24071e47d05436c4daba704942a9ff28, type: 2}
     - {fileID: 11400000, guid: b55b1f1cfcd60af43b520189cab129f0, type: 2}
+    - {fileID: 11400000, guid: 4e2ae56dc092bce45b90ac5dba4d8d8e, type: 2}
+    - {fileID: 11400000, guid: 7e01be0f80770bf40ad5d671c3cf3790, type: 2}
     Dialogue: {fileID: 1483034506}
     IntroStyle1: {fileID: 11400000, guid: 73c0e5d8ee8ba0e499297b55063f2820, type: 2}
     IntroStyle2: {fileID: 11400000, guid: 48ca9a92e67d67e46a0deea8116e3393, type: 2}
