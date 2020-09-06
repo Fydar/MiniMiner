@@ -3,10 +3,12 @@
 MUST
 
 - [X] Main Menu
-- [ ] Reward Flow at Shop
-- [ ] Shopkeeper Sprite
-- [ ] Finalised Equipment List
+- [X] Shopkeeper Sprite
+- [50%] Reward Flow at Shop
+- [50%] Finalised Equipment List
 - [ ] Collide with Decorations
+- [ ] Wall Collapsing
+- [ ] WebGL template and build
 
 SHOULD
 
