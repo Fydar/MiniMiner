@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f32f1a723389e924f847630d41fa4976, type: 3}
   m_Name: MalletL1
   m_EditorClassIdentifier: 
-  MinimumWallDamage: 10
+  MinimumWallDamage: 20
   MaximumWallDamage: 20
   Digs:
   - 0
