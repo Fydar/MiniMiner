@@ -28,21 +28,19 @@ namespace GBJam8
 		private void Update()
 		{
 			var originalCamPos = transform.localPosition;
-			;
+
 			elapsed += Time.deltaTime;
 
 			float percentComplete = elapsed / duration;
-			percentComplete = falloff.Evaluate(percentComplete);
-
-			float damper = 1.0f - Mathf.Clamp01(percentComplete);
+			percentComplete = falloff.Evaluate(Mathf.Clamp01(percentComplete));
 
 			float alpha = percentComplete * frequency * intensity;
 
-			float x = Mathf.PerlinNoise(alpha, 0) * 2.0f - 1.0f;
-			float y = Mathf.PerlinNoise(0, alpha) * 2.0f - 1.0f;
+			float x = (Mathf.PerlinNoise(alpha, 0) * 2.0f) - 1.0f;
+			float y = (Mathf.PerlinNoise(0, alpha) * 2.0f) - 1.0f;
 
-			x *= damper * magnitude * intensity;
-			y *= damper * magnitude * intensity;
+			x *= percentComplete * magnitude * intensity;
+			y *= percentComplete * magnitude * intensity;
 
 			transform.localPosition = new Vector3(
 				Mathf.Round(x * 16.0f) / 16.0f,

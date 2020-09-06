@@ -19,7 +19,9 @@ MonoBehaviour:
   SmallIcon: {fileID: 21300000, guid: d48461587033a8a4e86f3e43a4412e40, type: 3}
   StartingLevel: 0
   Levels:
-  - Cost: 300
+  - Cost: 350
     Brush: {fileID: 11400000, guid: 604adf3bef184384885cc9e3d9d3d362, type: 2}
   - Cost: 450
     Brush: {fileID: 11400000, guid: 950be6f1e0ae04e4b8e3b16909cde6dd, type: 2}
+  - Cost: 600
+    Brush: {fileID: 11400000, guid: 693ac2ff4f89ee94a9113b54c31f78df, type: 2}

@@ -154,9 +154,32 @@ namespace GBJam8
 		}
 		public IEnumerator BoulderInteractionRoutine()
 		{
-			int removalCost = 200;
+			string rarity = Game.Setup.RarityMap.GetTile(Game.Setup.PlayerPrefab.FacingTile).name;
+
+			int removalCost;
+			if (rarity == "rarity-2")
+			{
+				removalCost = 50;
+			}
+			else if (rarity == "rarity-3")
+			{
+				removalCost = 100;
+			}
+			else if (rarity == "rarity-4")
+			{
+				removalCost = 150;
+			}
+			else if (rarity == "rarity-5")
+			{
+				removalCost = 200;
+			}
+			else
+			{
+				removalCost = 250;
+			}
 
 			Game.Setup.InteractionShop.gameObject.SetActive(true);
+			Game.Setup.InteractionShopCurrencyText.text = $"${Game.State.Player.Money}";
 
 			if (Game.State.Player.Money >= removalCost)
 			{
@@ -191,6 +214,12 @@ namespace GBJam8
 				{
 					Game.State.Player.Money -= removalCost;
 					Game.Setup.InteractionShopCurrencyText.text = $"${Game.State.Player.Money}";
+
+					AudioManager.Play(Game.Setup.BoulderBreak);
+
+					yield return new WaitForSeconds(0.25f);
+
+					AudioManager.Play(Game.Setup.BoulderBreak);
 
 					Game.Setup.PlayerPrefab.decorationLayer.SetTile(Game.Setup.PlayerPrefab.FacingTile, null);
 
@@ -273,6 +302,7 @@ namespace GBJam8
 
 					Game.Setup.RewardGraphic.gameObject.SetActive(false);
 					Game.Setup.RewardDetails.gameObject.SetActive(false);
+					Game.Setup.RewardStarPool.Flush();
 
 					yield return new WaitForSeconds(0.35f);
 
@@ -286,7 +316,6 @@ namespace GBJam8
 
 					yield return new WaitForSeconds(0.35f);
 
-					Game.Setup.RewardStarPool.Flush();
 					for (int i = 0; i < item.Key.StarRating; i++)
 					{
 						AudioManager.Play(Game.Setup.StarAppearSound);

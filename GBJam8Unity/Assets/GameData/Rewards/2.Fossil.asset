@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 853cdff32e9ac4b448420afd185480b4, type: 3}
-  m_Name: Fossil
+  m_Name: 2.Fossil
   m_EditorClassIdentifier: 
-  CurrencyValue: 25
+  CurrencyValue: 35
   StarRating: 2
   DisplayName: FOSSIL
   IconGraphic: {fileID: 21300000, guid: 08bf99ace6583d340898a8b1578120b7, type: 3}

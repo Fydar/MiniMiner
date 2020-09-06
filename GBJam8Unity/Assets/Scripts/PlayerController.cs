@@ -110,10 +110,10 @@ namespace GBJam8
 			bool willCollide = false;
 			foreach (var corner in new Vector2[]
 				{
-				new Vector2(halfCollider.x, halfCollider. y),
-				new Vector2(-halfCollider.x, halfCollider. y),
-				new Vector2(halfCollider.x, -halfCollider. y),
-				new Vector2(-halfCollider.x, -halfCollider. y)
+					new Vector2(halfCollider.x, halfCollider. y),
+					new Vector2(-halfCollider.x, halfCollider. y),
+					new Vector2(halfCollider.x, -halfCollider. y),
+					new Vector2(-halfCollider.x, -halfCollider. y)
 				})
 			{
 				var samplePoint = Position + corner + movement;

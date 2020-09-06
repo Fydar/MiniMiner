@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f32f1a723389e924f847630d41fa4976, type: 3}
-  m_Name: JackhammerL2
+  m_Name: JackhammerL3
   m_EditorClassIdentifier: 
-  MinimumWallDamage: 5
-  MaximumWallDamage: 5
+  MinimumWallDamage: 4
+  MaximumWallDamage: 4
   Digs:
   - 0
   - 0.075
@@ -116,20 +116,35 @@ MonoBehaviour:
     ResprayPerDig: 1
   DiggingPattern:
     Entries:
-    - Offset: {x: 0, y: 0}
-      Chance: 0.5
-      LayerFudge: 0
-    - Offset: {x: -1, y: 0}
+    - Offset: {x: -1, y: -1}
       Chance: 0.5
       LayerFudge: 0
     - Offset: {x: 0, y: -1}
       Chance: 0.5
       LayerFudge: 0
-    - Offset: {x: -1, y: -1}
+    - Offset: {x: 1, y: -1}
       Chance: 0.5
       LayerFudge: 0
-    MinimumDigs: 2
-    MaximumDigs: 3
+    - Offset: {x: -1, y: 0}
+      Chance: 0.5
+      LayerFudge: 0
+    - Offset: {x: 0, y: 0}
+      Chance: 0.5
+      LayerFudge: 0
+    - Offset: {x: 1, y: 0}
+      Chance: 0.5
+      LayerFudge: 0
+    - Offset: {x: -1, y: 1}
+      Chance: 0.5
+      LayerFudge: 0
+    - Offset: {x: 0, y: 1}
+      Chance: 0.5
+      LayerFudge: 0
+    - Offset: {x: 1, y: 1}
+      Chance: 0.5
+      LayerFudge: 0
+    MinimumDigs: 5
+    MaximumDigs: 8
     IsSmartBrush: 1
   HitSound: {fileID: 11400000, guid: 1ddd8b4c5e94bf7429d311de1035c9da, type: 2}
   ShakeIntencity: 15
