@@ -17,8 +17,10 @@ namespace GBJam8
 		[SerializeField] private TileBase terrainFloor;
 
 		[Space]
-		[SerializeField] private Tilemap decorationLayer;
+		public Tilemap decorationLayer;
+		[SerializeField] private TilemapCollider2D decorationCollider;
 		[SerializeField] private TileBase shopKeeperTile;
+		[SerializeField] private TileBase blockadeTile;
 
 		[Space]
 		[SerializeField] public Animator selector;
@@ -121,6 +123,10 @@ namespace GBJam8
 				{
 					willCollide = true;
 				}
+				if (decorationCollider.OverlapPoint(samplePoint))
+				{
+					willCollide = true;
+				}
 			}
 
 			if (!willCollide)
@@ -134,7 +140,7 @@ namespace GBJam8
 		{
 			var facingTile = FacingTile;
 
-			if (CanMine || CanTalkToShopKeeper)
+			if (CanMine || CanTalkToShopKeeper || CanInteractWithBlockade)
 			{
 				selector.transform.position = new Vector3(facingTile.x + 0.5f, facingTile.y + 0.5f, 0.0f);
 				selector.gameObject.SetActive(true);
@@ -171,6 +177,15 @@ namespace GBJam8
 			{
 				var otherTile = decorationLayer.GetTile(FacingTile);
 				return otherTile == shopKeeperTile;
+			}
+		}
+
+		public bool CanInteractWithBlockade
+		{
+			get
+			{
+				var otherTile = decorationLayer.GetTile(FacingTile);
+				return otherTile == blockadeTile;
 			}
 		}
 	}

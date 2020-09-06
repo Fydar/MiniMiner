@@ -340,12 +340,57 @@ namespace GBJam8
 
 							if (wallData.IsCollapsed)
 							{
+								AudioManager.Play(Game.Setup.CollapseSound);
+								Game.Setup.WorldMining.WorldCamera.GetComponent<PerlinShake>().PlayShake(5.0f);
+
 								foreach (float time in new TimedLoop(0.5f))
 								{
-									Game.Setup.CircleWipe.SetTime(time);
+									Game.Setup.TopToBottomWipe.SetTime(time);
 									yield return null;
 								}
 								yield return new WaitForSeconds(0.1f);
+								Game.Setup.SetActiveWorld(Game.Setup.VoidWorld);
+								Game.Setup.TopToBottomWipe.SetTime(0.0f);
+
+								Game.Setup.Dialogue.gameObject.SetActive(true);
+								Game.Setup.TalkingToCharacter.gameObject.SetActive(false);
+
+								Game.Setup.Dialogue.Text.Clear();
+								yield return new WaitForSeconds(0.25f);
+								Game.Setup.Dialogue.Text.SetText(Game.Setup.IntroStyle2, $"The wall has collapsed!");
+								yield return StartCoroutine(Game.Setup.Dialogue.WaitForUserInput());
+
+								Game.Setup.Dialogue.gameObject.SetActive(false);
+
+								yield break;
+							}
+
+							if (wallData.HasCollectedAllRewards)
+							{
+								if (Game.Setup.CollectAllSound != null)
+								{
+									AudioManager.Play(Game.Setup.CollectAllSound);
+								}
+
+								foreach (float time in new TimedLoop(0.5f))
+								{
+									Game.Setup.SawToothWipe.SetTime(time);
+									yield return null;
+								}
+								yield return new WaitForSeconds(0.1f);
+								Game.Setup.SetActiveWorld(Game.Setup.VoidWorld);
+								Game.Setup.SawToothWipe.SetTime(0.0f);
+
+								Game.Setup.Dialogue.gameObject.SetActive(true);
+								Game.Setup.TalkingToCharacter.gameObject.SetActive(false);
+
+								Game.Setup.Dialogue.Text.Clear();
+								yield return new WaitForSeconds(0.25f);
+								Game.Setup.Dialogue.Text.SetText(Game.Setup.IntroStyle1, $"You have collected all the rewards!");
+								yield return StartCoroutine(Game.Setup.Dialogue.WaitForUserInput());
+
+								Game.Setup.Dialogue.gameObject.SetActive(false);
+
 								yield break;
 							}
 						}

@@ -42,18 +42,56 @@ namespace GBJam8
 						{
 							Game.Setup.PlayerPrefab.EnableInput = false;
 
-							ReturnAction = new ReturnActionGoMining()
-							{
-								Target = Game.Setup.PlayerPrefab.FacingTile
-							};
+							var wallData = Game.State.GetOrGenerate(Game.Setup.PlayerPrefab.FacingTile);
 
-							foreach (float time in new TimedLoop(0.5f))
+							if (wallData.IsCollapsed)
 							{
-								Game.Setup.CircleWipe.SetTime(time);
-								yield return null;
+								Game.Setup.PlayerPrefab.EnableInput = false;
+
+								Game.Setup.Dialogue.gameObject.SetActive(true);
+								Game.Setup.TalkingToCharacter.gameObject.SetActive(false);
+
+								Game.Setup.Dialogue.Text.Clear();
+								yield return new WaitForSeconds(0.25f);
+								Game.Setup.Dialogue.Text.SetText(Game.Setup.IntroStyle1, $"This wall has already collapsed!");
+								yield return StartCoroutine(Game.Setup.Dialogue.WaitForUserInput());
+
+								Game.Setup.Dialogue.gameObject.SetActive(false);
+
+								Game.Setup.PlayerPrefab.EnableInput = true;
 							}
-							yield return new WaitForSeconds(0.1f);
-							yield break;
+							else if (wallData.HasCollectedAllRewards)
+							{
+								Game.Setup.PlayerPrefab.EnableInput = false;
+
+								Game.Setup.Dialogue.gameObject.SetActive(true);
+								Game.Setup.TalkingToCharacter.gameObject.SetActive(false);
+
+								Game.Setup.Dialogue.Text.Clear();
+								yield return new WaitForSeconds(0.25f);
+								Game.Setup.Dialogue.Text.SetText(Game.Setup.IntroStyle1, $"You have already collected all the rewards!");
+								yield return StartCoroutine(Game.Setup.Dialogue.WaitForUserInput());
+
+								Game.Setup.Dialogue.gameObject.SetActive(false);
+
+								Game.Setup.PlayerPrefab.EnableInput = true;
+							}
+							else
+							{
+								ReturnAction = new ReturnActionGoMining()
+								{
+									Target = Game.Setup.PlayerPrefab.FacingTile
+								};
+
+								foreach (float time in new TimedLoop(0.5f))
+								{
+									Game.Setup.CircleWipe.SetTime(time);
+									yield return null;
+								}
+								yield return new WaitForSeconds(0.1f);
+								yield break;
+							}
+
 						}
 						else
 						{
@@ -93,13 +131,92 @@ namespace GBJam8
 
 						Game.Setup.PlayerPrefab.EnableInput = true;
 					}
+					else if (Game.Setup.PlayerPrefab.CanInteractWithBlockade)
+					{
+						Game.Setup.PlayerPrefab.selector.SetTrigger("Press");
+						AudioManager.Play(Game.Setup.NudgeSound);
+						Game.Setup.PlayerPrefab.EnableInput = false;
+
+						Game.Setup.TalkingToCharacter.gameObject.SetActive(true);
+						Game.Setup.Dialogue.gameObject.SetActive(true);
+
+						yield return StartCoroutine(BoulderInteractionRoutine());
+
+						Game.Setup.TalkingToCharacter.gameObject.SetActive(false);
+						Game.Setup.Dialogue.gameObject.SetActive(false);
+
+						Game.Setup.PlayerPrefab.EnableInput = true;
+					}
 				}
 
 				yield return null;
 			}
 		}
+		public IEnumerator BoulderInteractionRoutine()
+		{
+			int removalCost = 200;
+
+			Game.Setup.InteractionShop.gameObject.SetActive(true);
+
+			if (Game.State.Player.Money >= removalCost)
+			{
+				Game.Setup.Dialogue.Text.Clear();
+				yield return new WaitForSeconds(0.5f);
+
+				Game.Setup.Dialogue.Text.SetText(Game.Setup.IntroStyle1, $"Would you like me to remove this boulder for ${removalCost}?");
+
+				yield return StartCoroutine(Game.Setup.Dialogue.WaitForUserInput(waitOnceComplete: false));
+
+				var popup = new StateMachinePopup(Game);
+				yield return null;
+
+				yield return StartCoroutine(popup.StateRoutine(
+					new PopupOptionText()
+					{
+						Display = "Yes",
+						DefaultSelection = false
+					},
+					new PopupOptionText()
+					{
+						Display = "No",
+						DefaultSelection = true
+					}
+				));
+
+				yield return new WaitForSeconds(0.25f);
+				Game.Setup.Dialogue.Text.Clear();
+
+				if (popup.FinalSelected != null
+					&& popup.FinalSelected.Display == "Yes")
+				{
+					Game.State.Player.Money -= removalCost;
+					Game.Setup.InteractionShopCurrencyText.text = $"${Game.State.Player.Money}";
+
+					Game.Setup.PlayerPrefab.decorationLayer.SetTile(Game.Setup.PlayerPrefab.FacingTile, null);
+
+					yield return new WaitForSeconds(0.8f);
+				}
+			}
+			else
+			{
+				Game.Setup.Dialogue.Text.Clear();
+				yield return new WaitForSeconds(0.25f);
+				Game.Setup.Dialogue.Text.SetText(Game.Setup.IntroStyle1, $"It will cost you ${removalCost} to remove that boulder.");
+				yield return StartCoroutine(Game.Setup.Dialogue.WaitForUserInput());
+
+				Game.Setup.Dialogue.Text.Clear();
+				yield return new WaitForSeconds(0.25f);
+				Game.Setup.Dialogue.Text.SetText(Game.Setup.IntroStyle1, $"Try again when you have enough money.");
+				yield return StartCoroutine(Game.Setup.Dialogue.WaitForUserInput());
+			}
+			Game.Setup.InteractionShop.gameObject.SetActive(false);
+		}
 		public IEnumerator ShopkeeperRoutine()
 		{
+			Game.Setup.RewardTab.gameObject.SetActive(false);
+			Game.Setup.EquipmentTab.gameObject.SetActive(false);
+			Game.Setup.ShopFader.gameObject.SetActive(true);
+
 			Game.Setup.Dialogue.Text.Clear();
 			yield return new WaitForSeconds(0.5f);
 			Game.Setup.Dialogue.Text.SetText(Game.Setup.IntroStyle1, "Hay there, Adventurer!");
@@ -109,6 +226,10 @@ namespace GBJam8
 			yield return new WaitForSeconds(0.25f);
 
 			if (Game.State.Player.BagCapacity > 0)
+			{
+				Game.Setup.Dialogue.Text.SetText(Game.Setup.IntroStyle1, "What do you have for me?");
+			}
+			else
 			{
 				int rand = Random.Range(0, 2);
 				Game.Setup.TalkingToCharacterShake.PlayShake(1.0f);
@@ -121,18 +242,17 @@ namespace GBJam8
 					Game.Setup.Dialogue.Text.SetText(Game.Setup.IntroStyle2, "I DROPPED MY GLASSES!!!");
 				}
 			}
-			else
-			{
-				Game.Setup.Dialogue.Text.SetText(Game.Setup.IntroStyle1, "What do you have for me?");
-			}
 
 			yield return StartCoroutine(Game.Setup.Dialogue.WaitForUserInput());
 			Game.Setup.Dialogue.Text.Clear();
 
 			if (Game.State.Player.BagCapacity > 0)
 			{
-				Game.Setup.RewardTab.gameObject.SetActive(true);
 				Game.Setup.EquipmentTab.gameObject.SetActive(false);
+				Game.Setup.RewardTab.gameObject.SetActive(true);
+
+				Game.Setup.RewardGraphic.gameObject.SetActive(false);
+				Game.Setup.RewardDetails.gameObject.SetActive(false);
 
 				foreach (float time in new TimedLoop(0.5f))
 				{
@@ -154,18 +274,23 @@ namespace GBJam8
 					Game.Setup.RewardGraphic.gameObject.SetActive(false);
 					Game.Setup.RewardDetails.gameObject.SetActive(false);
 
-					yield return new WaitForSeconds(0.5f);
+					yield return new WaitForSeconds(0.35f);
 
+					AudioManager.Play(Game.Setup.UIAppearSound);
 					Game.Setup.RewardGraphic.gameObject.SetActive(true);
 
-					yield return new WaitForSeconds(0.5f);
+					yield return new WaitForSeconds(0.35f);
 
+					AudioManager.Play(Game.Setup.UIAppearSound);
 					Game.Setup.RewardDetails.gameObject.SetActive(true);
+
+					yield return new WaitForSeconds(0.35f);
 
 					Game.Setup.RewardStarPool.Flush();
 					for (int i = 0; i < item.Key.StarRating; i++)
 					{
-						yield return new WaitForSeconds(0.5f);
+						AudioManager.Play(Game.Setup.StarAppearSound);
+						yield return new WaitForSeconds(0.1f);
 						Game.Setup.RewardStarPool.Grab(Game.Setup.RewardStarHolder);
 					}
 

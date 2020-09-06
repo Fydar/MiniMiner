@@ -19,12 +19,27 @@ namespace GBJam8.State
 			}
 		}
 
+		public bool HasCollectedAllRewards
+		{
+			get
+			{
+				foreach (var reward in Rewards)
+				{
+					if (!reward.Claimed)
+					{
+						return false;
+					}
+				}
+				return true;
+			}
+		}
+
 		public WallTileData()
 		{
 			Nodes = new WallTileNode[22, 16];
 		}
 
-		public static WallTileData GenerateBasic()
+		public static WallTileData GenerateBasic(string rarity)
 		{
 			var wallTile = new WallTileData();
 
@@ -41,25 +56,72 @@ namespace GBJam8.State
 				}
 			}
 
-			offset = new Vector2(Random.value * 1000, Random.value);
-			for (int x = 0; x < 22; x++)
+			if (rarity == "rarity-1")
 			{
-				for (int y = 0; y < 16; y++)
+				offset = new Vector2(Random.value * 1000, Random.value);
+				for (int x = 0; x < 22; x++)
 				{
-					float noise = Mathf.PerlinNoise((x + offset.x) * 0.25f, (y + offset.y) * 0.25f);
-					if (noise > 0.2f)
+					for (int y = 0; y < 16; y++)
 					{
-						wallTile.Nodes[x, y].Layers.Gravel = true;
+						if (!wallTile.Nodes[x, y].Layers.Rock)
+						{
+							float noise = Mathf.PerlinNoise((x + offset.x) * 0.175f, (y + offset.y) * 0.175f);
+							if (noise > 0.4f)
+							{
+								wallTile.Nodes[x, y].Layers.Gravel = true;
+							}
+						}
 					}
-					if (noise > 0.35f)
+				}
+			}
+			else
+			{
+				offset = new Vector2(Random.value * 1000, Random.value);
+				for (int x = 0; x < 22; x++)
+				{
+					for (int y = 0; y < 16; y++)
 					{
-						wallTile.Nodes[x, y].Layers.Surface = true;
+						float noise = Mathf.PerlinNoise((x + offset.x) * 0.25f, (y + offset.y) * 0.25f);
+						if (!wallTile.Nodes[x, y].Layers.Rock)
+						{
+							if (noise > 0.2f)
+							{
+								wallTile.Nodes[x, y].Layers.Gravel = true;
+							}
+						}
+						if (noise > 0.35f)
+						{
+							wallTile.Nodes[x, y].Layers.Surface = true;
+						}
 					}
 				}
 			}
 
+			var rewardsSource = Game.Instance.Setup.Rarity1Rewards;
+
+			if (rarity == "rarity-1")
+			{
+				rewardsSource = Game.Instance.Setup.Rarity1Rewards;
+			}
+			else if (rarity == "rarity-2")
+			{
+				rewardsSource = Game.Instance.Setup.Rarity2Rewards;
+			}
+			else if (rarity == "rarity-3")
+			{
+				rewardsSource = Game.Instance.Setup.Rarity3Rewards;
+			}
+			else if (rarity == "rarity-4")
+			{
+				rewardsSource = Game.Instance.Setup.Rarity4Rewards;
+			}
+			else if (rarity == "rarity-5")
+			{
+				rewardsSource = Game.Instance.Setup.Rarity5Rewards;
+			}
+
 			var rewards = new List<WallTileRewardData>();
-			var orderedRewards = Game.Instance.Setup.Rewards
+			var orderedRewards = rewardsSource
 				.OrderByDescending(reward => reward.Footprint)
 				.ToArray();
 

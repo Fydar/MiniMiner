@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d1514134bc4fbd41bb739b1b9a49231, type: 3}
-  m_Name: Shopkeeper
+  m_Script: {fileID: 11500000, guid: 7d052a6220061e34aadf5ebacb39e3dd, type: 3}
+  m_Name: UIAppear
   m_EditorClassIdentifier: 
-  m_DefaultSprite: {fileID: -5427164653334127848, guid: 8ba524561a403a04e9718bf37f07f79d,
-    type: 3}
-  m_DefaultGameObject: {fileID: 0}
-  m_DefaultColliderType: 1
-  m_TilingRules: []
+  VolumeGroup: Sfx
+  Clips:
+  - {fileID: 8300000, guid: d50fdb6f1d6e0684283989284e20bb3a, type: 3}
+  VolumeRange: {x: 0.6, y: 0.6}
+  PitchRange: {x: 1, y: 1}

@@ -21,7 +21,9 @@ namespace GBJam8.State
 			string asString = $"{position.x},{position.y},{position.z}";
 			if (!WallTiles.TryGetValue(asString, out var wallTile))
 			{
-				wallTile = WallTileData.GenerateBasic();
+				wallTile = WallTileData.GenerateBasic(
+					Game.Instance.Setup.RarityMap.GetTile(position).name
+				);
 				WallTiles[asString] = wallTile;
 			}
 			return wallTile;
