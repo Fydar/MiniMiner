@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f32f1a723389e924f847630d41fa4976, type: 3}
   m_Name: ChiselL1
   m_EditorClassIdentifier: 
-  MinimumWallDamage: 4
-  MaximumWallDamage: 6
+  MinimumWallDamage: 3
+  MaximumWallDamage: 5
   Digs:
   - 0
   - 0.25
