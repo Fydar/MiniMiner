@@ -44,7 +44,7 @@ namespace GBJam8
 		{
 			foreach (var label in Game.Setup.BagCapacity)
 			{
-				label.text = $"{Game.State.Player.BagCapacity}/ {Game.State.Player.MaxBagCapacity}";
+				label.text = $"BAG:{Game.State.Player.MaxBagCapacity}";
 			}
 		}
 
