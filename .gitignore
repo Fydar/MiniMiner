@@ -27,10 +27,10 @@ ExportedObj/
 # Unity3D Generated File On Crash Reports
 sysinfo.txt
 
-GBJam8Unity/*.sln
-GBJam8Unity/*.csproj
-GBJam8Unity/[Ll]ibrary/
-GBJam8Unity/Assets/AssetStoreTools*
+src/GBJam8Unity/*.sln
+src/GBJam8Unity/*.csproj
+src/GBJam8Unity/[Ll]ibrary/
+src/GBJam8Unity/Assets/AssetStoreTools*
 
 # Builds
 *.apk
@@ -51,3 +51,4 @@ Corridor/Library/ShaderCache/
 Corridor/Library/metadata/
 Project/Library/EditorInstance.json
 *.stamp
+misc/build
