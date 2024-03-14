@@ -27,11 +27,11 @@ ExportedObj/
 # Unity3D Generated File On Crash Reports
 sysinfo.txt
 
-src/GBJam8Unity/*.sln
-src/GBJam8Unity/*.csproj
-src/GBJam8Unity/[Ll]ibrary/
-src/GBJam8Unity/Assets/AssetStoreTools*
-src/GBJam8Unity/UserSettings
+src/MiniMinerUnity/*.sln
+src/MiniMinerUnity/*.csproj
+src/MiniMinerUnity/[Ll]ibrary/
+src/MiniMinerUnity/Assets/AssetStoreTools*
+src/MiniMinerUnity/UserSettings
 
 # Builds
 *.apk
