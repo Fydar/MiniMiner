@@ -32,8 +32,8 @@ namespace MiniMinerUnity.DialgoueSystem
 
 			while (!Text.IsComplete)
 			{
-				if (Input.GetKeyDown(KeyCode.X)
-					|| Input.GetKeyDown(KeyCode.C))
+				if (GameboyInput.Instance.GameboyControls.B.WasPressedThisFrame()
+					|| GameboyInput.Instance.GameboyControls.A.WasPressedThisFrame())
 				{
 					Text.InstaCompete = true;
 					yield return null;
@@ -61,8 +61,8 @@ namespace MiniMinerUnity.DialgoueSystem
 						lastElipsisUpdateTime = Time.realtimeSinceStartup;
 					}
 
-					if (Input.GetKeyDown(KeyCode.X)
-						|| Input.GetKeyDown(KeyCode.C))
+					if (GameboyInput.Instance.GameboyControls.B.WasPressedThisFrame()
+						|| GameboyInput.Instance.GameboyControls.A.WasPressedThisFrame())
 					{
 						break;
 					}

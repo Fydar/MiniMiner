@@ -18,25 +18,25 @@ namespace MiniMinerUnity
 				string parentFolder = new DirectoryInfo(Application.dataPath).Parent.ToString();
 				return Path.Combine(parentFolder, "Screenshots");
 			}
-		}
+        }
 
-		private static KeyCode CaptureKey
-		{
-			get
-			{
-				return KeyCode.G;
-			}
-		}
+        private static KeyCode CaptureKey
+        {
+            get
+            {
+                return KeyCode.G;
+            }
+        }
 
-		private static KeyCode OpenFolderKey
-		{
-			get
-			{
-				return KeyCode.H;
-			}
-		}
+        private static KeyCode OpenFolderKey
+        {
+            get
+            {
+                return KeyCode.H;
+            }
+        }
 
-		public static void CaptureScreenshot()
+        public static void CaptureScreenshot()
 		{
 			string folder = OutputPath;
 			if (!Directory.Exists(folder))
@@ -81,18 +81,29 @@ namespace MiniMinerUnity
 
 		private void Update()
 		{
-			if (Input.GetKeyDown(CaptureKey))
-			{
-				CaptureScreenshot();
-			}
-			if (Input.GetKeyDown(OpenFolderKey))
-			{
-				OpenScreenshotsFolder();
-			}
-		}
+#if ENABLE_INPUT_SYSTEM
+            if (UnityEngine.InputSystem.Keyboard.current.gKey.wasPressedThisFrame)
+            {
+                CaptureScreenshot();
+            }
+            if (UnityEngine.InputSystem.Keyboard.current.hKey.wasPressedThisFrame)
+            {
+                OpenScreenshotsFolder();
+            }
+#else
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                CaptureScreenshot();
+            }
+            if (Input.GetKeyDown(KeyCode.H))
+            {
+                OpenScreenshotsFolder();
+            }
+#endif
+        }
 
 #if UNITY_EDITOR
-		[InitializeOnLoad]
+        [InitializeOnLoad]
 		private static class EditorScreenshotter
 		{
 			static EditorScreenshotter()

@@ -31,7 +31,7 @@ namespace MiniMinerUnity
 
 			while (true)
 			{
-				if (Input.GetKeyDown(KeyCode.C))
+				if (GameboyInput.Instance.GameboyControls.A.WasPressedThisFrame())
 				{
 					if (Game.Setup.PlayerPrefab.CanMine)
 					{
@@ -324,8 +324,8 @@ namespace MiniMinerUnity
 
 					while (true)
 					{
-						if (Input.GetKeyDown(KeyCode.C)
-							|| Input.GetKeyDown(KeyCode.X))
+						if (GameboyInput.Instance.GameboyControls.A.WasPressedThisFrame()
+							|| GameboyInput.Instance.GameboyControls.B.WasPressedThisFrame())
 						{
 							break;
 						}
@@ -359,12 +359,12 @@ namespace MiniMinerUnity
 			int currentlySelectedShopItem = 0;
 			while (true)
 			{
-				if (Input.GetKeyDown(KeyCode.X))
+				if (GameboyInput.Instance.GameboyControls.B.WasPressedThisFrame())
 				{
 					AudioManager.Play(Game.Setup.NudgeSound);
 					break;
 				}
-				else if (Input.GetKeyDown(KeyCode.C))
+				else if (GameboyInput.Instance.GameboyControls.A.WasPressedThisFrame())
 				{
 					AudioManager.Play(Game.Setup.NudgeSound);
 
@@ -452,7 +452,7 @@ namespace MiniMinerUnity
 					}
 				}
 
-				if (Input.GetKeyDown(KeyCode.S))
+				if (GameboyInput.Instance.GameboyControls.Move.WasPressedThisFrame() && GameboyInput.Instance.GameboyControls.Move.ReadValue<Vector2>().y < -0.25f)
 				{
 					currentlySelectedShopItem++;
 					if (currentlySelectedShopItem >= Game.Setup.Equipment.Length)
@@ -461,7 +461,7 @@ namespace MiniMinerUnity
 					}
 					AudioManager.Play(Game.Setup.NudgeSound);
 				}
-				else if (Input.GetKeyDown(KeyCode.W))
+				else if (GameboyInput.Instance.GameboyControls.Move.WasPressedThisFrame() && GameboyInput.Instance.GameboyControls.Move.ReadValue<Vector2>().y > 0.25f)
 				{
 					currentlySelectedShopItem--;
 					if (currentlySelectedShopItem < 0)

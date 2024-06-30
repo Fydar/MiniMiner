@@ -51,7 +51,7 @@ namespace MiniMinerUnity
 
 			while (true)
 			{
-				if (Input.GetKeyDown(KeyCode.S))
+				if (GameboyInput.Instance.GameboyControls.Move.WasPressedThisFrame() && GameboyInput.Instance.GameboyControls.Move.ReadValue<Vector2>().y < -0.25f)
 				{
 					currentlySelected--;
 					if (currentlySelected < 0)
@@ -60,7 +60,7 @@ namespace MiniMinerUnity
 					}
 					AudioManager.Play(Game.Setup.NudgeSound);
 				}
-				else if (Input.GetKeyDown(KeyCode.W))
+				else if (GameboyInput.Instance.GameboyControls.Move.WasPressedThisFrame() && GameboyInput.Instance.GameboyControls.Move.ReadValue<Vector2>().y > 0.25f)
 				{
 					currentlySelected++;
 					if (currentlySelected >= options.Length)
@@ -75,11 +75,11 @@ namespace MiniMinerUnity
 					option.Renderer.SetState(i == currentlySelected);
 				}
 
-				if (Input.GetKeyDown(KeyCode.X))
+				if (GameboyInput.Instance.GameboyControls.B.WasPressedThisFrame())
 				{
 					break;
 				}
-				else if (Input.GetKeyDown(KeyCode.C))
+				else if (GameboyInput.Instance.GameboyControls.A.WasPressedThisFrame())
 				{
 					FinalSelected = options[currentlySelected];
 					break;

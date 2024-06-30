@@ -65,11 +65,8 @@ namespace MiniMinerUnity
 
 			if (EnableInput)
 			{
-				movementDirection = new Vector2(
-					Input.GetAxisRaw("Horizontal"),
-					Input.GetAxisRaw("Vertical")
-				);
-			}
+				movementDirection = GameboyInput.Instance.GameboyControls.Move.ReadValue<Vector2>();
+            }
 
 			var movementDelta = movementDirection * MovementAmountPerAxis;
 

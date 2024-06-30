@@ -75,7 +75,7 @@ namespace MiniMinerUnity
 				Game.Setup.EquipmentSelector.gameObject.SetActive(true);
 				while (true)
 				{
-					if (Input.GetKeyDown(KeyCode.W))
+					if (GameboyInput.Instance.GameboyControls.Move.WasPressedThisFrame() && GameboyInput.Instance.GameboyControls.Move.ReadValue<Vector2>().y > 0.25f)
 					{
 						AudioManager.Play(Game.Setup.NudgeSound);
 
@@ -85,11 +85,11 @@ namespace MiniMinerUnity
 						);
 						break;
 					}
-					else if (Input.GetKeyDown(KeyCode.S))
+					else if (GameboyInput.Instance.GameboyControls.Move.WasPressedThisFrame() && GameboyInput.Instance.GameboyControls.Move.ReadValue<Vector2>().y < -0.25f)
 					{
 						AudioManager.Play(Game.Setup.NoSound);
 					}
-					if (Input.GetKeyDown(KeyCode.A))
+					if (GameboyInput.Instance.GameboyControls.Move.WasPressedThisFrame() && GameboyInput.Instance.GameboyControls.Move.ReadValue<Vector2>().x < -0.25f)
 					{
 						if (Game.State.Player.SelectedEquipment > 0)
 						{
@@ -103,7 +103,7 @@ namespace MiniMinerUnity
 							AudioManager.Play(Game.Setup.NoSound);
 						}
 					}
-					else if (Input.GetKeyDown(KeyCode.D))
+					else if (GameboyInput.Instance.GameboyControls.Move.WasPressedThisFrame() && GameboyInput.Instance.GameboyControls.Move.ReadValue<Vector2>().x > 0.25f)
 					{
 						if (Game.State.Player.SelectedEquipment <= Game.Setup.Equipment.Length - 2)
 						{
@@ -118,7 +118,7 @@ namespace MiniMinerUnity
 						}
 					}
 
-					if (Input.GetKeyDown(KeyCode.C))
+					if (GameboyInput.Instance.GameboyControls.A.WasPressedThisFrame())
 					{
 						var equipment = Game.Setup.Equipment[Game.State.Player.SelectedEquipment];
 						int equipmentLevel = Game.State.Player.Equipment[equipment.Identifier].Level;
@@ -133,7 +133,7 @@ namespace MiniMinerUnity
 							break;
 						}
 					}
-					else if (Input.GetKeyDown(KeyCode.X))
+					else if (GameboyInput.Instance.GameboyControls.B.WasPressedThisFrame())
 					{
 						foreach (float time in new TimedLoop(0.5f))
 						{
@@ -151,7 +151,7 @@ namespace MiniMinerUnity
 				Game.Setup.EquipmentSelector.gameObject.SetActive(false);
 				while (true)
 				{
-					if (Input.GetKeyDown(KeyCode.W))
+					if (GameboyInput.Instance.GameboyControls.Move.WasPressedThisFrame() && GameboyInput.Instance.GameboyControls.Move.ReadValue<Vector2>().y > 0.25f)
 					{
 						if (SelectionPosition.y <= 11)
 						{
@@ -163,7 +163,7 @@ namespace MiniMinerUnity
 							AudioManager.Play(Game.Setup.NoSound);
 						}
 					}
-					else if (Input.GetKeyDown(KeyCode.S))
+					else if (GameboyInput.Instance.GameboyControls.Move.WasPressedThisFrame() && GameboyInput.Instance.GameboyControls.Move.ReadValue<Vector2>().y < -0.25f)
 					{
 						if (SelectionPosition.y > 4)
 						{
@@ -177,7 +177,7 @@ namespace MiniMinerUnity
 							break;
 						}
 					}
-					if (Input.GetKeyDown(KeyCode.A))
+					if (GameboyInput.Instance.GameboyControls.Move.WasPressedThisFrame() && GameboyInput.Instance.GameboyControls.Move.ReadValue<Vector2>().x < -0.25f)
 					{
 						if (SelectionPosition.x > 3)
 						{
@@ -189,7 +189,7 @@ namespace MiniMinerUnity
 							AudioManager.Play(Game.Setup.NoSound);
 						}
 					}
-					else if (Input.GetKeyDown(KeyCode.D))
+					else if (GameboyInput.Instance.GameboyControls.Move.WasPressedThisFrame() && GameboyInput.Instance.GameboyControls.Move.ReadValue<Vector2>().x > 0.25f)
 					{
 						if (SelectionPosition.x <= 17)
 						{
@@ -204,13 +204,13 @@ namespace MiniMinerUnity
 
 					Game.Setup.MiningSelection.transform.localPosition = new Vector3(SelectionPosition.x, SelectionPosition.y, 0.0f) * 0.5f;
 
-					if (Input.GetKeyDown(KeyCode.X))
+					if (GameboyInput.Instance.GameboyControls.B.WasPressedThisFrame())
 					{
 						AudioManager.Play(Game.Setup.NudgeSound);
 						yield return null;
 						break;
 					}
-					else if (Input.GetKeyDown(KeyCode.C))
+					else if (GameboyInput.Instance.GameboyControls.A.WasPressedThisFrame())
 					{
 						var equipment = Game.Setup.Equipment[Game.State.Player.SelectedEquipment];
 						int equipmentLevel = Game.State.Player.Equipment[equipment.Identifier].Level;

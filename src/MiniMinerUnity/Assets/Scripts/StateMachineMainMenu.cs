@@ -42,7 +42,7 @@ namespace MiniMinerUnity
 
 			while (true)
 			{
-				if (Input.GetKeyDown(KeyCode.C))
+				if (GameboyInput.Instance.GameboyControls.A.WasPressedThisFrame())
 				{
 					break;
 				}
