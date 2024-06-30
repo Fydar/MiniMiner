@@ -3,10 +3,10 @@ using System;
 
 namespace MiniMinerUnity
 {
-	[Serializable]
-	public struct EquipmentItemLevelData
-	{
-		public int Cost;
-		public MiningBrush Brush;
-	}
+    [Serializable]
+    public struct EquipmentItemLevelData
+    {
+        public int Cost;
+        public MiningBrush Brush;
+    }
 }

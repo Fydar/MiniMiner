@@ -2,19 +2,19 @@
 
 namespace MiniMinerUnity
 {
-	[CreateAssetMenu]
-	public class EquipmentItemTemplate : ScriptableObject
-	{
-		public string Identifier;
-		public string DisplayName;
-		public SfxGroup UpgradeSound;
+    [CreateAssetMenu]
+    public class EquipmentItemTemplate : ScriptableObject
+    {
+        public string Identifier;
+        public string DisplayName;
+        public SfxGroup UpgradeSound;
 
-		[Space]
-		public Sprite TinyIcon;
-		public Sprite SmallIcon;
+        [Space]
+        public Sprite TinyIcon;
+        public Sprite SmallIcon;
 
-		[Space]
-		public int StartingLevel = -1;
-		public EquipmentItemLevelData[] Levels = new EquipmentItemLevelData[1];
-	}
+        [Space]
+        public int StartingLevel = -1;
+        public EquipmentItemLevelData[] Levels = new EquipmentItemLevelData[1];
+    }
 }

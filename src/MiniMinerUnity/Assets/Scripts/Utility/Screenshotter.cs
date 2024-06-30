@@ -9,78 +9,66 @@ using UnityEditor;
 
 namespace MiniMinerUnity
 {
-	public class Screenshotter : MonoBehaviour
-	{
-		public static string OutputPath
-		{
-			get
-			{
-				string parentFolder = new DirectoryInfo(Application.dataPath).Parent.ToString();
-				return Path.Combine(parentFolder, "Screenshots");
-			}
-        }
-
-        private static KeyCode CaptureKey
+    public class Screenshotter : MonoBehaviour
+    {
+        public static string OutputPath
         {
             get
             {
-                return KeyCode.G;
+                string parentFolder = new DirectoryInfo(Application.dataPath).Parent.ToString();
+                return Path.Combine(parentFolder, "Screenshots");
             }
         }
 
-        private static KeyCode OpenFolderKey
-        {
-            get
-            {
-                return KeyCode.H;
-            }
-        }
+        private static KeyCode CaptureKey => KeyCode.G;
+
+        private static KeyCode OpenFolderKey => KeyCode.H;
 
         public static void CaptureScreenshot()
-		{
-			string folder = OutputPath;
-			if (!Directory.Exists(folder))
-			{
-				Directory.CreateDirectory(folder);
-			}
+        {
+            string folder = OutputPath;
+            if (!Directory.Exists(folder))
+            {
+                Directory.CreateDirectory(folder);
+            }
 
-			string now = DateTime.Now.ToString("MM-dd-yyy HH-mm-ss");
-			string basicFile = Path.Combine(folder, "Screenshot " + now);
+            string now = DateTime.Now.ToString("MM-dd-yyy HH-mm-ss");
+            string basicFile = Path.Combine(folder, "Screenshot " + now);
 
-			string path = basicFile;
-			int append = 0;
-			while (File.Exists(path + ".png"))
-			{
-				path = basicFile + " " + append.ToString();
-				append++;
-			}
+            string path = basicFile;
+            int append = 0;
+            while (File.Exists(path + ".png"))
+            {
+                path = basicFile + " " + append.ToString();
+                append++;
+            }
 
-			ScreenCapture.CaptureScreenshot(path + ".png");
-		}
+            ScreenCapture.CaptureScreenshot(path + ".png");
+        }
 
-		public static void OpenScreenshotsFolder()
-		{
-			Application.OpenURL(OutputPath);
-		}
+        public static void OpenScreenshotsFolder()
+        {
+            Application.OpenURL(OutputPath);
+        }
 
-		[RuntimeInitializeOnLoadMethod]
-		private static void Init()
-		{
-			if (CaptureKey == KeyCode.None)
-			{
-				return;
-			}
+        [RuntimeInitializeOnLoadMethod]
+        private static void Init()
+        {
+            if (CaptureKey == KeyCode.None)
+            {
+                return;
+            }
 
-			var obj = new GameObject("Screenshotter")
-			{
-				hideFlags = HideFlags.HideInHierarchy
-			};
-			DontDestroyOnLoad(obj);
-			obj.AddComponent<Screenshotter>();
-		}
+            var obj = new GameObject("Screenshotter")
+            {
+                hideFlags = HideFlags.HideInHierarchy
+            };
+            DontDestroyOnLoad(obj);
+            obj.AddComponent<Screenshotter>();
+        }
 
-		private void Update()
-		{
+        private void Update()
+        {
 #if ENABLE_INPUT_SYSTEM
             if (UnityEngine.InputSystem.Keyboard.current.gKey.wasPressedThisFrame)
             {
@@ -104,70 +92,70 @@ namespace MiniMinerUnity
 
 #if UNITY_EDITOR
         [InitializeOnLoad]
-		private static class EditorScreenshotter
-		{
-			static EditorScreenshotter()
-			{
-				SceneView.duringSceneGui += SceneViewCallback;
-			}
+        private static class EditorScreenshotter
+        {
+            static EditorScreenshotter()
+            {
+                SceneView.duringSceneGui += SceneViewCallback;
+            }
 
-			private static void SceneViewCallback(SceneView view)
-			{
-				var currentEvent = Event.current;
-				if (currentEvent.type == EventType.KeyDown)
-				{
-					if (currentEvent.keyCode == KeyCode.None)
-					{
-						return;
-					}
+            private static void SceneViewCallback(SceneView view)
+            {
+                var currentEvent = Event.current;
+                if (currentEvent.type == EventType.KeyDown)
+                {
+                    if (currentEvent.keyCode == KeyCode.None)
+                    {
+                        return;
+                    }
 
-					if (currentEvent.keyCode == OpenFolderKey)
-					{
-						OpenScreenshotsFolder();
-					}
-					else if (currentEvent.keyCode == CaptureKey)
-					{
-						var camera = EditorUtility.CreateGameObjectWithHideFlags("Temp_Cam", HideFlags.HideAndDontSave)
-							.AddComponent<Camera>();
+                    if (currentEvent.keyCode == OpenFolderKey)
+                    {
+                        OpenScreenshotsFolder();
+                    }
+                    else if (currentEvent.keyCode == CaptureKey)
+                    {
+                        var camera = EditorUtility.CreateGameObjectWithHideFlags("Temp_Cam", HideFlags.HideAndDontSave)
+                            .AddComponent<Camera>();
 
-						var mainCamera = Camera.main;
-						if (mainCamera != null)
-						{
-							camera.clearFlags = mainCamera.clearFlags;
-							camera.backgroundColor = mainCamera.backgroundColor;
-							camera.allowHDR = mainCamera.allowHDR;
-						}
+                        var mainCamera = Camera.main;
+                        if (mainCamera != null)
+                        {
+                            camera.clearFlags = mainCamera.clearFlags;
+                            camera.backgroundColor = mainCamera.backgroundColor;
+                            camera.allowHDR = mainCamera.allowHDR;
+                        }
 
-						camera.transform.position = view.camera.transform.position;
-						camera.transform.rotation = view.camera.transform.rotation;
-						camera.fieldOfView = view.camera.fieldOfView;
-						camera.allowMSAA = true;
+                        camera.transform.position = view.camera.transform.position;
+                        camera.transform.rotation = view.camera.transform.rotation;
+                        camera.fieldOfView = view.camera.fieldOfView;
+                        camera.allowMSAA = true;
 
-						camera.depth = 1001;
-						EditorApplication.ExecuteMenuItem("Window/General/Game");
-						UnityEditorInternal.InternalEditorUtility.RepaintAllViews();
+                        camera.depth = 1001;
+                        EditorApplication.ExecuteMenuItem("Window/General/Game");
+                        UnityEditorInternal.InternalEditorUtility.RepaintAllViews();
 
-						EditorApplication.delayCall += () =>
-						{
-							CaptureScreenshot();
+                        EditorApplication.delayCall += () =>
+                        {
+                            CaptureScreenshot();
 
-							EditorApplication.delayCall += () =>
-							{
-								UnityEditorInternal.InternalEditorUtility.RepaintAllViews();
+                            EditorApplication.delayCall += () =>
+                            {
+                                UnityEditorInternal.InternalEditorUtility.RepaintAllViews();
 
-								EditorApplication.delayCall += () =>
-								{
-									DestroyImmediate(camera.gameObject);
+                                EditorApplication.delayCall += () =>
+                                {
+                                    DestroyImmediate(camera.gameObject);
 
-									EditorApplication.delayCall += UnityEditorInternal.InternalEditorUtility.RepaintAllViews;
-								};
-							};
-						};
-					}
-				}
-			}
-		}
+                                    EditorApplication.delayCall += UnityEditorInternal.InternalEditorUtility.RepaintAllViews;
+                                };
+                            };
+                        };
+                    }
+                }
+            }
+        }
 #endif
-	}
+    }
 }
 #endif

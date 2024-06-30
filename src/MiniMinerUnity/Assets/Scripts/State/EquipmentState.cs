@@ -3,13 +3,13 @@ using System;
 
 namespace MiniMinerUnity.State
 {
-	[Serializable]
-	public class EquipmentState
-	{
-		public int Level;
-		public EquipmentShopRenderer Renderer;
+    [Serializable]
+    public class EquipmentState
+    {
+        public int Level;
+        public EquipmentShopRenderer Renderer;
 
-		// public int TilesDestroyed;
-		// public int RewardsFound;
-	}
+        // public int TilesDestroyed;
+        // public int RewardsFound;
+    }
 }

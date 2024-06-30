@@ -3,6 +3,6 @@ using UnityEngine;
 
 namespace MiniMinerUnity
 {
-	[Serializable]
-	public class SpriteRendererPool : UIPool<SpriteRenderer> { }
+    [Serializable]
+    public class SpriteRendererPool : UIPool<SpriteRenderer> { }
 }

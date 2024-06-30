@@ -3,6 +3,6 @@ using System;
 
 namespace MiniMinerUnity
 {
-	[Serializable]
-	public class EquipmentShopRendererPool : UIPool<EquipmentShopRenderer> { }
+    [Serializable]
+    public class EquipmentShopRendererPool : UIPool<EquipmentShopRenderer> { }
 }

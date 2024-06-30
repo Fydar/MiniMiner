@@ -4,21 +4,21 @@ using UnityEngine;
 
 namespace MiniMinerUnity
 {
-	[Serializable]
-	public abstract class StateMachineState
-	{
-		protected Game Game;
+    [Serializable]
+    public abstract class StateMachineState
+    {
+        protected Game Game;
 
-		public StateMachineState(Game game)
-		{
-			Game = game;
-		}
+        public StateMachineState(Game game)
+        {
+            Game = game;
+        }
 
-		public abstract IEnumerator StateRoutine();
+        public abstract IEnumerator StateRoutine();
 
-		public Coroutine StartCoroutine(IEnumerator enumerator)
-		{
-			return Game.StartCoroutine(enumerator);
-		}
-	}
+        public Coroutine StartCoroutine(IEnumerator enumerator)
+        {
+            return Game.StartCoroutine(enumerator);
+        }
+    }
 }

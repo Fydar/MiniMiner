@@ -3,6 +3,6 @@ using System;
 
 namespace MiniMinerUnity
 {
-	[Serializable]
-	public class PopupOptionPool : UIPool<PopupOption> { }
+    [Serializable]
+    public class PopupOptionPool : UIPool<PopupOption> { }
 }

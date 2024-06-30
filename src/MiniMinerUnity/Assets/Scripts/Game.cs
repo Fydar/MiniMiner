@@ -4,45 +4,45 @@ using UnityEngine;
 
 namespace MiniMinerUnity
 {
-	public class Game : MonoBehaviour
-	{
-		public static Game Instance;
+    public class Game : MonoBehaviour
+    {
+        public static Game Instance;
 
-		[NonSerialized]
-		public GameState State;
-		public SceneSetup Setup;
+        [NonSerialized]
+        public GameState State;
+        public SceneSetup Setup;
 
-		private StateMachineRoot rootState;
+        private StateMachineRoot rootState;
 
-		private void Awake()
-		{
-			Instance = this;
-			Setup.PlayerPrefab.game = this;
-			Setup.ShopFader.alpha = 0.0f;
-		}
+        private void Awake()
+        {
+            Instance = this;
+            Setup.PlayerPrefab.game = this;
+            Setup.ShopFader.alpha = 0.0f;
+        }
 
-		private void Start()
-		{
-			State = new GameState(Setup);
+        private void Start()
+        {
+            State = new GameState(Setup);
 
-			Setup.EquipmentShopRendererPool.Flush();
-			foreach (var equipment in Setup.Equipment)
-			{
-				var equipmentState = State.Player.Equipment[equipment.Identifier];
+            Setup.EquipmentShopRendererPool.Flush();
+            foreach (var equipment in Setup.Equipment)
+            {
+                var equipmentState = State.Player.Equipment[equipment.Identifier];
 
-				var renderer = Setup.EquipmentShopRendererPool.Grab(Setup.EquipmentShopHolder);
+                var renderer = Setup.EquipmentShopRendererPool.Grab(Setup.EquipmentShopHolder);
 
-				renderer.Setup(equipment, equipmentState);
-				equipmentState.Renderer = renderer;
-			}
+                renderer.Setup(equipment, equipmentState);
+                equipmentState.Renderer = renderer;
+            }
 
-			rootState = new StateMachineRoot(this);
-			StartCoroutine(rootState.StateRoutine());
-		}
+            rootState = new StateMachineRoot(this);
+            StartCoroutine(rootState.StateRoutine());
+        }
 
-		private void Update()
-		{
+        private void Update()
+        {
 
-		}
-	}
+        }
+    }
 }
