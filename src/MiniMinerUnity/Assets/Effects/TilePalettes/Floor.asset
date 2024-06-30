@@ -13,7 +13,11 @@ MonoBehaviour:
   m_Name: Floor
   m_EditorClassIdentifier: 
   m_Sprite: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
   m_Transform:
     e00: 1
     e01: 0
@@ -35,18 +39,13 @@ MonoBehaviour:
   m_Flags: 1
   m_ColliderType: 0
   Sprites:
-  - Sprite: {fileID: -2853219648494101960, guid: 79c27619dafac4049afa2f15cd4928fc,
-      type: 3}
-    Weight: 10
-  - Sprite: {fileID: 2978534373793167515, guid: 79c27619dafac4049afa2f15cd4928fc,
-      type: 3}
-    Weight: 4
-  - Sprite: {fileID: -5236598025641892238, guid: 79c27619dafac4049afa2f15cd4928fc,
-      type: 3}
-    Weight: 5
-  - Sprite: {fileID: -170528779196785925, guid: 79c27619dafac4049afa2f15cd4928fc,
-      type: 3}
-    Weight: 1
-  - Sprite: {fileID: -7853790385966711496, guid: 79c27619dafac4049afa2f15cd4928fc,
-      type: 3}
-    Weight: 4
+  - {Sprite: {fileID: -2853219648494101960, guid: 79c27619dafac4049afa2f15cd4928fc,
+      type: 3}, Weight: 10}
+  - {Sprite: {fileID: 2978534373793167515, guid: 79c27619dafac4049afa2f15cd4928fc,
+      type: 3}, Weight: 4}
+  - {Sprite: {fileID: -5236598025641892238, guid: 79c27619dafac4049afa2f15cd4928fc,
+      type: 3}, Weight: 5}
+  - {Sprite: {fileID: -170528779196785925, guid: 79c27619dafac4049afa2f15cd4928fc,
+      type: 3}, Weight: 1}
+  - {Sprite: {fileID: -7853790385966711496, guid: 79c27619dafac4049afa2f15cd4928fc,
+      type: 3}, Weight: 4}

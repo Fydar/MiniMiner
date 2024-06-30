@@ -97,7 +97,7 @@ namespace MiniMinerUnity
 		{
 			static EditorScreenshotter()
 			{
-				SceneView.onSceneGUIDelegate += SceneViewCallback;
+				SceneView.duringSceneGui += SceneViewCallback;
 			}
 
 			private static void SceneViewCallback(SceneView view)

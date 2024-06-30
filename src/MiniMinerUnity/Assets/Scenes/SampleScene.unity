@@ -2731,7 +2731,7 @@ MonoBehaviour:
   terrain: {fileID: 1344968578}
   terrainCollider: {fileID: 1344968579}
   terrainWall: {fileID: 11400000, guid: 99de5b93eb311354ca5f70ee18e2d22f, type: 2}
-  terrainFloor: {fileID: 11400000, guid: 919c00575eef1fb49a2a209057589c20, type: 2}
+  terrainFloor: {fileID: 0}
   decorationLayer: {fileID: 199076126}
   decorationCollider: {fileID: 199076124}
   shopKeeperTile: {fileID: 11400000, guid: 538c10b851f216d46958110f0e2c745f, type: 2}
@@ -2954,12 +2954,12 @@ MonoBehaviour:
   m_RequiresColorTexture: 0
   m_Version: 2
   m_TaaSettings:
-    quality: 3
-    frameInfluence: 0.1
-    jitterScale: 1
-    mipBias: 0
-    varianceClampScale: 0.9
-    contrastAdaptiveSharpening: 0
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
 --- !u!114 &470636375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5407,12 +5407,12 @@ MonoBehaviour:
   m_RequiresColorTexture: 0
   m_Version: 2
   m_TaaSettings:
-    quality: 3
-    frameInfluence: 0.1
-    jitterScale: 1
-    mipBias: 0
-    varianceClampScale: 0.9
-    contrastAdaptiveSharpening: 0
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
 --- !u!1 &965657432
 GameObject:
   m_ObjectHideFlags: 0
@@ -6321,12 +6321,12 @@ MonoBehaviour:
   m_RequiresColorTexture: 0
   m_Version: 2
   m_TaaSettings:
-    quality: 3
-    frameInfluence: 0.1
-    jitterScale: 1
-    mipBias: 0
-    varianceClampScale: 0.9
-    contrastAdaptiveSharpening: 0
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
 --- !u!81 &1076605477
 AudioListener:
   m_ObjectHideFlags: 0
@@ -41221,12 +41221,12 @@ MonoBehaviour:
   m_RequiresColorTexture: 0
   m_Version: 2
   m_TaaSettings:
-    quality: 3
-    frameInfluence: 0.1
-    jitterScale: 1
-    mipBias: 0
-    varianceClampScale: 0.9
-    contrastAdaptiveSharpening: 0
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
 --- !u!81 &1658714883
 AudioListener:
   m_ObjectHideFlags: 0
