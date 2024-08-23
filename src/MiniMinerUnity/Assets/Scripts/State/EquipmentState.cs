@@ -1,4 +1,4 @@
-﻿using MiniMinerUnity.DialgoueSystem;
+﻿using MiniMinerUnity.DialogueSystem;
 using System;
 
 namespace MiniMinerUnity.State

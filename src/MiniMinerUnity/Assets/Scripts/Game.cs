@@ -39,10 +39,5 @@ namespace MiniMinerUnity
             rootState = new StateMachineRoot(this);
             StartCoroutine(rootState.StateRoutine());
         }
-
-        private void Update()
-        {
-
-        }
     }
 }

@@ -1,4 +1,4 @@
-﻿using MiniMinerUnity.DialgoueSystem;
+﻿using MiniMinerUnity.DialogueSystem;
 using System;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -18,7 +18,7 @@ namespace MiniMinerUnity
         public RewardType[] Rarity5Rewards;
 
         [Header("Dialogue")]
-        public DialogueSystem Dialogue;
+        public DialogueSystem.DialogueSystem Dialogue;
         public TextStyle IntroStyle1;
         public TextStyle IntroStyle2;
 
@@ -35,12 +35,12 @@ namespace MiniMinerUnity
         public Text[] RewardName;
         public Text RewardValueCounter;
         public RectTransform RewardStarHolder;
-        public ImageRendererPool RewardStarPool;
+        public UIPool<Image> RewardStarPool;
 
         [Space]
         public RectTransform EquipmentTab;
         public RectTransform EquipmentShopHolder;
-        public EquipmentShopRendererPool EquipmentShopRendererPool;
+        public UIPool<EquipmentShopRenderer> EquipmentShopRendererPool;
 
         [Header("Interaction Shop")]
         public RectTransform InteractionShop;
@@ -51,10 +51,10 @@ namespace MiniMinerUnity
         public TileBase[] RarityTiles;
 
         [Header("General")]
-        public Canvas TransitionCanvas;
+        public Canvas overlayCanvas;
+        public GameObject transitionStack;
         public Transition CircleWipe;
         public Transition SawToothWipe;
-        public Transition AngularWipe;
         public Transition LeftToRightWipe;
         public Transition RightToLeftWipe;
         public Transition TopToBottomWipe;
@@ -97,7 +97,7 @@ namespace MiniMinerUnity
         public ParticleSystem HitDustParticles;
         public ParticleSystem DustFallParticles;
         public Animator MiningSelection;
-        public Transition CracksTransition;
+        public TransitionGraphic CracksTransition;
 
         [Space]
         public Image CurrentEquipment;
@@ -131,12 +131,13 @@ namespace MiniMinerUnity
             if (world != null)
             {
                 world.gameObject.SetActive(true);
-                TransitionCanvas.worldCamera = world.WorldCamera;
+                overlayCanvas.worldCamera = world.WorldCamera;
+                transitionStack.transform.SetParent(world.WorldCamera.transform);
+                transitionStack.transform.localPosition = new Vector3(0.0f, 0.0f, 10.0f);
             }
 
             CircleWipe.SetTime(0.0f);
             SawToothWipe.SetTime(0.0f);
-            AngularWipe.SetTime(0.0f);
             LeftToRightWipe.SetTime(0.0f);
             RightToLeftWipe.SetTime(0.0f);
             TopToBottomWipe.SetTime(0.0f);

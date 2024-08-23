@@ -21,7 +21,7 @@ namespace MiniMinerUnity
 
         [Header("Rewards")]
         public Transform RewardHolder;
-        public SpriteRendererPool RewardPool;
+        public UIPool<SpriteRenderer> RewardPool;
 
         public void RenderWall(WallTileData wallTileData)
         {

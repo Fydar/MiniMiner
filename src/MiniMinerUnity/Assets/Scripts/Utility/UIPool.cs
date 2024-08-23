@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace MiniMinerUnity
 {
+    [Serializable]
     public class UIPool<T>
         where T : Component
     {
@@ -86,7 +88,7 @@ namespace MiniMinerUnity
 
         private void ExpandPool(Transform parent)
         {
-            var clone = Object.Instantiate(SampleButton.gameObject, parent);
+            var clone = UnityEngine.Object.Instantiate(SampleButton.gameObject, parent);
             clone.transform.localScale = Vector3.one;
 
             var rectTransform = clone.GetComponent<RectTransform>();

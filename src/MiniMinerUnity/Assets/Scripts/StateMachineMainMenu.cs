@@ -25,20 +25,21 @@ namespace MiniMinerUnity
             Game.Setup.MainMenuPart3.gameObject.SetActive(false);
             Game.Setup.MainMenuContinueText.gameObject.SetActive(false);
 
-            yield return new WaitForSeconds(1.0f);
+            yield return new WaitForSeconds(0.25f);
             Game.Setup.MainMenuPart1.gameObject.SetActive(true);
             AudioManager.Play(Game.Setup.MainMenuPunch);
 
-            yield return new WaitForSeconds(1.0f);
+            yield return new WaitForSeconds(0.25f);
             Game.Setup.MainMenuPart2.gameObject.SetActive(true);
             AudioManager.Play(Game.Setup.MainMenuPunch);
 
-            yield return new WaitForSeconds(1.0f);
+            yield return new WaitForSeconds(0.25f);
             Game.Setup.MainMenuPart3.gameObject.SetActive(true);
             AudioManager.Play(Game.Setup.MainMenuPunch);
 
-            yield return new WaitForSeconds(1.0f);
+            yield return new WaitForSeconds(0.25f);
             Game.Setup.MainMenuContinueText.gameObject.SetActive(true);
+            AudioManager.Play(Game.Setup.MainMenuPunch);
 
             while (true)
             {
@@ -49,6 +50,7 @@ namespace MiniMinerUnity
                 yield return null;
             }
 
+            AudioManager.Play(Game.Setup.MainMenuPunch);
             Game.Setup.MainMenuMusic.Stop();
             yield return new WaitForSeconds(0.4f);
             AudioManager.Play(Game.Setup.MainMenuContinueSound);

@@ -39,13 +39,8 @@ public class LinearInterpolator : IInterpolator
 
         float movementAmount = Speed * deltaTime;
 
-        if (currentValue < targetValue)
-        {
-            currentValue = Mathf.Min(currentValue + movementAmount, targetValue);
-        }
-        else
-        {
-            currentValue = Mathf.Max(currentValue - movementAmount, targetValue);
-        }
+        currentValue = currentValue < targetValue
+            ? Mathf.Min(currentValue + movementAmount, targetValue)
+            : Mathf.Max(currentValue - movementAmount, targetValue);
     }
 }

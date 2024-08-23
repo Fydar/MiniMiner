@@ -486,15 +486,14 @@ namespace MiniMinerUnity
             }
 
             Game.Setup.Dialogue.Text.Clear();
-            yield return new WaitForSeconds(0.5f);
             Game.Setup.Dialogue.Text.SetText(Game.Setup.IntroStyle1, "Take care out there!");
-            yield return StartCoroutine(Game.Setup.Dialogue.WaitForUserInput());
 
             foreach (float time in new TimedLoop(0.5f))
             {
                 Game.Setup.ShopFader.alpha = 1.0f - time;
                 yield return null;
             }
+            yield return StartCoroutine(Game.Setup.Dialogue.WaitForUserInput());
         }
     }
 }

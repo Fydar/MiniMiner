@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace MiniMinerUnity.DialgoueSystem
+namespace MiniMinerUnity.DialogueSystem
 {
     public class CoroutineHelper : MonoBehaviour
     {
