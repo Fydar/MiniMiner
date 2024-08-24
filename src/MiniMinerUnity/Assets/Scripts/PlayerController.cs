@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using MiniMinerUnity.DialogueSystem;
+using System.Collections;
+using UnityEngine;
 using UnityEngine.Tilemaps;
 
 namespace MiniMinerUnity
@@ -45,7 +47,7 @@ namespace MiniMinerUnity
         {
             rb = GetComponent<Rigidbody2D>();
 
-            InvokeRepeating("MovementUpdate", MovementUpdates, MovementUpdates);
+            CoroutineHelper.Start(MovementCoroutine());
         }
 
         private void OnEnable()
@@ -54,50 +56,60 @@ namespace MiniMinerUnity
             animator.SetFloat("Vertical", facingDirection.y);
         }
 
-        private void MovementUpdate()
+        private IEnumerator MovementCoroutine()
         {
-            if (!isActiveAndEnabled)
+            while (true)
             {
-                return;
-            }
-
-            var movementDirection = Vector2.zero;
-
-            if (EnableInput)
-            {
-                movementDirection = GameboyInput.Instance.GameboyControls.Move.ReadValue<Vector2>();
-            }
-
-            var movementDelta = movementDirection * MovementAmountPerAxis;
-
-            if (movementDirection.magnitude > 0.1f)
-            {
-                if ((lastFootstepSound + FootstepCooldown) < Time.realtimeSinceStartup)
+                if (!isActiveAndEnabled)
                 {
-                    lastFootstepSound = Time.realtimeSinceStartup;
-                    AudioManager.Play(game.Setup.StepSound);
-                }
-
-                if (Mathf.Abs(movementDirection.x) > 0.1f)
-                {
-                    facingDirection = new Vector2(movementDirection.x, 0.0f);
+                    yield return null;
                 }
                 else
                 {
-                    facingDirection = new Vector2(0.0f, movementDirection.y);
+                    var movementDirection = Vector2.zero;
+
+                    if (EnableInput)
+                    {
+                        movementDirection = GameboyInput.Instance.GameboyControls.Move.ReadValue<Vector2>();
+                    }
+
+                    var movementDelta = movementDirection * MovementAmountPerAxis;
+
+                    if (movementDirection.magnitude > 0.1f)
+                    {
+
+
+                        if ((lastFootstepSound + FootstepCooldown) < Time.realtimeSinceStartup)
+                        {
+                            lastFootstepSound = Time.realtimeSinceStartup;
+                            AudioManager.Play(game.Setup.StepSound);
+                        }
+
+                        if (Mathf.Abs(movementDirection.x) > 0.1f)
+                        {
+                            facingDirection = new Vector2(movementDirection.x, 0.0f);
+                        }
+                        else
+                        {
+                            facingDirection = new Vector2(0.0f, movementDirection.y);
+                        }
+
+                        animator.SetFloat("Horizontal", movementDirection.x);
+                        animator.SetFloat("Vertical", movementDirection.y);
+                        animator.SetFloat("Speed", 1.0f);
+
+                        TakeStep(new Vector2(movementDelta.x, 0.0f));
+                        TakeStep(new Vector2(0.0f, movementDelta.y));
+
+                        yield return new WaitForSeconds(MovementUpdates * movementDirection.magnitude);
+                    }
+                    else
+                    {
+                        animator.SetFloat("Speed", 0.0f);
+                        yield return null;
+                    }
                 }
-
-                animator.SetFloat("Horizontal", movementDirection.x);
-                animator.SetFloat("Vertical", movementDirection.y);
-                animator.SetFloat("Speed", 1.0f);
             }
-            else
-            {
-                animator.SetFloat("Speed", 0.0f);
-            }
-
-            TakeStep(new Vector2(movementDelta.x, 0.0f));
-            TakeStep(new Vector2(0.0f, movementDelta.y));
         }
 
         private void TakeStep(Vector2 movement)
