@@ -66,42 +66,42 @@ namespace MiniMinerUnity
                 }
                 else
                 {
-                    var movementDirection = Vector2.zero;
+                    var inputDirection = Vector2.zero;
 
                     if (EnableInput)
                     {
-                        movementDirection = GameboyInput.Instance.GameboyControls.Move.ReadValue<Vector2>();
+                        inputDirection = GameboyInput.Instance.GameboyControls.Move.ReadValue<Vector2>();
                     }
 
-                    var movementDelta = movementDirection * MovementAmountPerAxis;
+                    inputDirection = new Vector2(Mathf.Round(inputDirection.x), Mathf.Round(inputDirection.y));
 
-                    if (movementDirection.magnitude > 0.1f)
+                    var movementDelta = inputDirection * MovementAmountPerAxis;
+
+                    if (inputDirection.magnitude > 0.1f)
                     {
-
-
                         if ((lastFootstepSound + FootstepCooldown) < Time.realtimeSinceStartup)
                         {
                             lastFootstepSound = Time.realtimeSinceStartup;
                             AudioManager.Play(game.Setup.StepSound);
                         }
 
-                        if (Mathf.Abs(movementDirection.x) > 0.1f)
+                        if (Mathf.Abs(inputDirection.x) > 0.1f)
                         {
-                            facingDirection = new Vector2(movementDirection.x, 0.0f);
+                            facingDirection = new Vector2(inputDirection.x, 0.0f);
                         }
                         else
                         {
-                            facingDirection = new Vector2(0.0f, movementDirection.y);
+                            facingDirection = new Vector2(0.0f, inputDirection.y);
                         }
 
-                        animator.SetFloat("Horizontal", movementDirection.x);
-                        animator.SetFloat("Vertical", movementDirection.y);
+                        animator.SetFloat("Horizontal", inputDirection.x);
+                        animator.SetFloat("Vertical", inputDirection.y);
                         animator.SetFloat("Speed", 1.0f);
 
                         TakeStep(new Vector2(movementDelta.x, 0.0f));
                         TakeStep(new Vector2(0.0f, movementDelta.y));
 
-                        yield return new WaitForSeconds(MovementUpdates * movementDirection.magnitude);
+                        yield return new WaitForSeconds(MovementUpdates * inputDirection.magnitude);
                     }
                     else
                     {
