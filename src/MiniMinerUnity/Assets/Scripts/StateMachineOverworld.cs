@@ -52,7 +52,7 @@ namespace MiniMinerUnity
                                 Game.Setup.TalkingToCharacter.gameObject.SetActive(false);
 
                                 Game.Setup.Dialogue.Text.Clear();
-                                yield return new WaitForSeconds(0.25f);
+                                yield return new WaitForSeconds(0.125f);
                                 Game.Setup.Dialogue.Text.SetText(Game.Setup.IntroStyle1, $"This wall has already collapsed!");
                                 yield return StartCoroutine(Game.Setup.Dialogue.WaitForUserInput());
 
@@ -68,7 +68,7 @@ namespace MiniMinerUnity
                                 Game.Setup.TalkingToCharacter.gameObject.SetActive(false);
 
                                 Game.Setup.Dialogue.Text.Clear();
-                                yield return new WaitForSeconds(0.25f);
+                                yield return new WaitForSeconds(0.125f);
                                 Game.Setup.Dialogue.Text.SetText(Game.Setup.IntroStyle1, $"You have already collected all the rewards!");
                                 yield return StartCoroutine(Game.Setup.Dialogue.WaitForUserInput());
 
@@ -100,12 +100,12 @@ namespace MiniMinerUnity
 
 
                             Game.Setup.Dialogue.Text.Clear();
-                            yield return new WaitForSeconds(0.5f);
+                            yield return new WaitForSeconds(0.125f);
                             Game.Setup.Dialogue.Text.SetText(Game.Setup.IntroStyle1, "I don't have any tools yet!");
                             yield return StartCoroutine(Game.Setup.Dialogue.WaitForUserInput());
 
                             Game.Setup.Dialogue.Text.Clear();
-                            yield return new WaitForSeconds(0.25f);
+                            yield return new WaitForSeconds(0.125f);
                             Game.Setup.Dialogue.Text.SetText(Game.Setup.IntroStyle1, "Let's go visit the shop keeper!");
                             yield return StartCoroutine(Game.Setup.Dialogue.WaitForUserInput());
 
@@ -183,7 +183,7 @@ namespace MiniMinerUnity
             if (Game.State.Player.Money >= removalCost)
             {
                 Game.Setup.Dialogue.Text.Clear();
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(0.125f);
 
                 Game.Setup.Dialogue.Text.SetText(Game.Setup.IntroStyle1, $"Would you like me to remove this boulder for ${removalCost}?");
 
@@ -205,7 +205,7 @@ namespace MiniMinerUnity
                     }
                 ));
 
-                yield return new WaitForSeconds(0.25f);
+                yield return new WaitForSeconds(0.125f);
                 Game.Setup.Dialogue.Text.Clear();
 
                 if (popup.FinalSelected != null
@@ -216,24 +216,24 @@ namespace MiniMinerUnity
 
                     AudioManager.Play(Game.Setup.BoulderBreak);
 
-                    yield return new WaitForSeconds(0.25f);
+                    yield return new WaitForSeconds(0.2f);
 
                     AudioManager.Play(Game.Setup.BoulderBreak);
 
                     Game.Setup.PlayerPrefab.decorationLayer.SetTile(Game.Setup.PlayerPrefab.FacingTile, null);
 
-                    yield return new WaitForSeconds(0.8f);
+                    yield return new WaitForSeconds(0.75f);
                 }
             }
             else
             {
                 Game.Setup.Dialogue.Text.Clear();
-                yield return new WaitForSeconds(0.25f);
+                yield return new WaitForSeconds(0.125f);
                 Game.Setup.Dialogue.Text.SetText(Game.Setup.IntroStyle1, $"It will cost you ${removalCost} to remove that boulder.");
                 yield return StartCoroutine(Game.Setup.Dialogue.WaitForUserInput());
 
                 Game.Setup.Dialogue.Text.Clear();
-                yield return new WaitForSeconds(0.25f);
+                yield return new WaitForSeconds(0.125f);
                 Game.Setup.Dialogue.Text.SetText(Game.Setup.IntroStyle1, $"Try again when you have enough money.");
                 yield return StartCoroutine(Game.Setup.Dialogue.WaitForUserInput());
             }
@@ -246,12 +246,12 @@ namespace MiniMinerUnity
             Game.Setup.ShopFader.gameObject.SetActive(true);
 
             Game.Setup.Dialogue.Text.Clear();
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.125f);
             Game.Setup.Dialogue.Text.SetText(Game.Setup.IntroStyle1, "Hay there, Adventurer!");
             yield return StartCoroutine(Game.Setup.Dialogue.WaitForUserInput());
 
             Game.Setup.Dialogue.Text.Clear();
-            yield return new WaitForSeconds(0.25f);
+            yield return new WaitForSeconds(0.125f);
 
             if (Game.State.Player.BagCapacity > 0)
             {
@@ -303,22 +303,22 @@ namespace MiniMinerUnity
                     Game.Setup.RewardDetails.gameObject.SetActive(false);
                     Game.Setup.RewardStarPool.Flush();
 
-                    yield return new WaitForSeconds(0.35f);
+                    yield return new WaitForSeconds(0.125f);
 
                     AudioManager.Play(Game.Setup.UIAppearSound);
                     Game.Setup.RewardGraphic.gameObject.SetActive(true);
 
-                    yield return new WaitForSeconds(0.35f);
+                    yield return new WaitForSeconds(0.125f);
 
                     AudioManager.Play(Game.Setup.UIAppearSound);
                     Game.Setup.RewardDetails.gameObject.SetActive(true);
 
-                    yield return new WaitForSeconds(0.35f);
+                    yield return new WaitForSeconds(0.125f);
 
                     for (int i = 0; i < item.Key.StarRating; i++)
                     {
+                        yield return new WaitForSeconds(0.0825f);
                         AudioManager.Play(Game.Setup.StarAppearSound);
-                        yield return new WaitForSeconds(0.1f);
                         Game.Setup.RewardStarPool.Grab(Game.Setup.RewardStarHolder);
                     }
 
@@ -391,7 +391,7 @@ namespace MiniMinerUnity
                             }
 
                             Game.Setup.Dialogue.Text.Clear();
-                            yield return new WaitForSeconds(0.5f);
+                            yield return new WaitForSeconds(0.125f);
                             if (equipmentState.Level == 0)
                             {
                                 Game.Setup.Dialogue.Text.SetText(Game.Setup.IntroStyle1, $"Would you like to buy my {equipment.DisplayName.ToUpper()}?");

@@ -14,7 +14,7 @@ namespace MiniMinerUnity
         public IEnumerator IntroDialogue()
         {
             Game.Setup.Dialogue.Text.Clear();
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.125f);
             Game.Setup.Dialogue.Text.SetText(Game.Setup.IntroStyle1, "...");
             yield return StartCoroutine(Game.Setup.Dialogue.WaitForUserInput());
 
@@ -31,27 +31,27 @@ namespace MiniMinerUnity
             yield return StartCoroutine(Game.Setup.Dialogue.WaitForUserInput());
 
             Game.Setup.Dialogue.Text.Clear();
-            yield return new WaitForSeconds(0.25f);
+            yield return new WaitForSeconds(0.125f);
             Game.Setup.Dialogue.Text.SetText(Game.Setup.IntroStyle1, "I am the new mine director!");
             yield return StartCoroutine(Game.Setup.Dialogue.WaitForUserInput());
 
             Game.Setup.Dialogue.Text.Clear();
-            yield return new WaitForSeconds(0.25f);
+            yield return new WaitForSeconds(0.125f);
             Game.Setup.Dialogue.Text.SetText(Game.Setup.IntroStyle1, "Thanks for clearing the mine from MONSTERS!");
             yield return StartCoroutine(Game.Setup.Dialogue.WaitForUserInput());
 
             Game.Setup.Dialogue.Text.Clear();
-            yield return new WaitForSeconds(0.25f);
+            yield return new WaitForSeconds(0.125f);
             Game.Setup.Dialogue.Text.SetText(Game.Setup.IntroStyle1, "The mine has now REOPENED!");
             yield return StartCoroutine(Game.Setup.Dialogue.WaitForUserInput());
 
             Game.Setup.Dialogue.Text.Clear();
-            yield return new WaitForSeconds(0.25f);
+            yield return new WaitForSeconds(0.125f);
             Game.Setup.Dialogue.Text.SetText(Game.Setup.IntroStyle1, "Come to me for all your mining needs!");
             yield return StartCoroutine(Game.Setup.Dialogue.WaitForUserInput());
 
             Game.Setup.Dialogue.Text.Clear();
-            yield return new WaitForSeconds(0.25f);
+            yield return new WaitForSeconds(0.125f);
             Game.Setup.TalkingToCharacterShake.PlayShake(1.0f);
             Game.Setup.Dialogue.Text.SetText(Game.Setup.IntroStyle2, "NOW GET DIGGING!!!");
             yield return StartCoroutine(Game.Setup.Dialogue.WaitForUserInput());

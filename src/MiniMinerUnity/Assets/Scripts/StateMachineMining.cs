@@ -356,7 +356,7 @@ namespace MiniMinerUnity
                                 Game.Setup.TalkingToCharacter.gameObject.SetActive(false);
 
                                 Game.Setup.Dialogue.Text.Clear();
-                                yield return new WaitForSeconds(0.25f);
+                                yield return new WaitForSeconds(0.125f);
                                 Game.Setup.Dialogue.Text.SetText(Game.Setup.IntroStyle2, $"The wall has collapsed!");
                                 yield return StartCoroutine(Game.Setup.Dialogue.WaitForUserInput());
 
