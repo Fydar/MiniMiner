@@ -274,6 +274,7 @@ namespace MiniMinerUnity
                                     }
                                 }
 
+                                RumbleUtility.Dig();
                                 AudioManager.Play(brush.HitSound);
                                 Game.Setup.MiningSelection.SetTrigger("Press");
                                 Game.Setup.WorldMining.WorldCamera.GetComponent<PerlinShake>().PlayShake(brush.ShakeIntencity);
@@ -340,6 +341,7 @@ namespace MiniMinerUnity
 
                             if (wallData.IsCollapsed)
                             {
+                                RumbleUtility.Collapse();
                                 AudioManager.Play(Game.Setup.CollapseSound);
                                 Game.Setup.WorldMining.WorldCamera.GetComponent<PerlinShake>().PlayShake(5.0f);
 
